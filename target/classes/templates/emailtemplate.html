@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:font-style="http://www.w3.org/1999/xhtml">
+<head></head>
+<body>
+<p><h4> Dear <span th:text="${name}"> </span>,</h4></p>
+
+<p>
+    Welcome to Wellvis, a platform where you can find appropriate, right and timely answers to your health issues.
+    Connect with health experts and other people to get answers on issues ranging from nutrition, fitness, wellness,
+    skin care to core medical issues. You can use our anonymous feature to confidently ask personal questions.
+</p>
+
+<p>
+    Watch out for our support group feature where you can connect,learn and help different people who have similar health challenges in a closed group format.
+    We are also working on helping you to chat remotely, directly and quickly with health experts through our specially designed Chat feature.
+</p>
+
+<p>
+    Kindly enter this code on the application to verify your account <b><span th:text="${code}"></span></b>
+</p>
+
+
+<p style="color: red; font-family: Verdana">
+    <b>PLEASE NOTE:</b>
+    Information gotten on the platform (WellVis) cannot substitute physical consultation with a trained medical specialist,
+    but over time will be a great source of facts and information that can be used to support the choice of various medical options, treatment,
+    medical experience and its possible outcomes and when/if a physical visit to a hospital is pertinent.
+</p>
+<br/>
+<p font-style="italic">
+    In cases of a medical emergency, please visit a hospital  or call 112 (Lagos, Nigeria) immediately!
+</p>
+
+</body>
+</html>
