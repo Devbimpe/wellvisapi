@@ -11,5 +11,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface LikeRepository extends PagingAndSortingRepository<Likes, Long> {
     long countByQuestion(Question question);
     Likes findByUser(User user);
+    Likes findByUserAndQuestion(User user, Question q);
 
 }

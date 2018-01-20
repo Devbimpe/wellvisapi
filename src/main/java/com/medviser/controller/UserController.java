@@ -46,7 +46,7 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "/fetchUserDeatils")
+    @GetMapping(value = "/getuserdetails")
     public Object fetchUserDetails(HttpServletRequest request){
         /*
         This is needed on any Endpoint that requires authorization.

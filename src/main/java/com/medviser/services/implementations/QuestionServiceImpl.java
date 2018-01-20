@@ -143,9 +143,10 @@ public class QuestionServiceImpl implements QuestionService {
                 c.setCreatedOn(date);
                 c.setUpdatedOn(date);
                 commentRepository.save(c);
-                List<Comments> comments=commentRepository.findByQuestion(q);
-                List<CommentsDTO> commentsDTOS = convEntsToDTOs(comments);
-                responseMap.put("comments",commentsDTOS);
+                //List<Comments> comments=commentRepository.findByQuestion(q);
+                //List<CommentsDTO> commentsDTOS = convEntsToDTOs(comments);
+                //responseMap.put("comments",commentsDTOS);
+                responseMap.put("success","success");
                 Response response = new Response("Success","Operation Successful",responseMap);
                 return response;
             }
@@ -158,13 +159,22 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Object getQuestion(Long id) {
+    public Object getQuestion(Long id, User user) {
 
         Map<String,Object> responseMap = new HashMap();
         try {
             Question question = questionRepository.findOne(id);
 
             QuestionResDTO qdto = convertQuestionEntityToDTO(question);
+            System.out.println("user is" + user);
+            if(user != null) {
+                Likes likes = likeRepository.findByUserAndQuestion(user, question);
+                if (likes != null) {
+                    qdto.liked="true";
+                } else {
+                    qdto.liked="false";
+                }
+            }
             responseMap.put("Question",qdto);
             Response response = new Response("Success","Operation Successful",responseMap);
             return response;

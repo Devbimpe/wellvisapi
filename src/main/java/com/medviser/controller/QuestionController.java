@@ -75,12 +75,14 @@ public class QuestionController {
     @GetMapping(value = "/{id}/getquestion")
     public Object getQuestion(@PathVariable Long id, HttpServletRequest request){
         String token = request.getHeader(tokenHeader);
-        User userTemp = userUtil.fetchUserDetails2(token);
-        if(token==null || userTemp==null){
-            return userUtil.tokenNullOrInvalidResponse(token);
+        System.out.println("token is" + token);
+        User userTemp = null;
+        if(token != null){
+            userTemp = userUtil.fetchUserDetails2(token);
         }
 
-        return questionService.getQuestion(id);
+        System.out.println("user is" + userTemp);
+        return questionService.getQuestion(id,userTemp);
     }
     @RequestMapping(
             value = "/**",

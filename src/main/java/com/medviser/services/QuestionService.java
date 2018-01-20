@@ -15,7 +15,7 @@ import java.awt.print.Pageable;
 public interface QuestionService {
     Object saveQuestion(QuestionResDTO question, User user);
 
-    Object getQuestion(Long id);
+    Object getQuestion(Long id, User user);
 
     Object getQuestions(PageableDetailsDTO pageableDetailsDTO);
 
