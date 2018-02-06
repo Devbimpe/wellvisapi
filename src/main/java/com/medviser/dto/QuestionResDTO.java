@@ -34,6 +34,7 @@ public class QuestionResDTO {
         this.liked = liked;
     }
 
+
     public QuestionResDTO() {
     }
 

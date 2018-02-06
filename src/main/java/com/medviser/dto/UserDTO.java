@@ -8,6 +8,10 @@ public class UserDTO {
     private Long id;
     private String fullName;
     private String email;
+    private String provider;
+
+    private String gender;
+    private String phoneNumber;
 
 
     public Long getId() {
@@ -34,6 +38,29 @@ public class UserDTO {
         this.email = email;
     }
 
+    public String getProvider() {
+        return provider;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
 
     public UserDTO(Long id, String fullName, String email) {
         this.id = id;
@@ -43,4 +70,7 @@ public class UserDTO {
 
     public UserDTO() {
     }
+
+
+
 }

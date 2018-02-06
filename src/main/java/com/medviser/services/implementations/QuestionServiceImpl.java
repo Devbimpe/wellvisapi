@@ -313,6 +313,17 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
 
+    private UserDTO convertUserEntToDTO(User user){
+        UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setFullName(user.fullName);
+        dto.setEmail(user.email);
+        dto.setGender(user.gender);
+        dto.setPhoneNumber(user.phoneNo);
+        return dto;
+
+    }
+
 
     private String getCurrentTime(){
         Calendar now = Calendar.getInstance();
