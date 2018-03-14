@@ -298,15 +298,20 @@ public class QuestionServiceImpl implements QuestionService {
         Long count = likeRepository.countByQuestion(question);
         if(question.anonymous==true){
             q.anonymous="true";
+            q.userFullName = "Anonymous";
         }
         else {
+            q.userFullName = question.user.fullName;
             q.anonymous="false";
         }
         //q.anonymous = question.anonymous;
         q.category = question.category;
         q.description = question.description;
+        Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        q.date=formatter.format(question.getCreatedOn());
         //q.title = question.title;
-        q.userFullName = question.user.fullName;
+
+
         q.userId = question.user.getId().toString();
         q.likesCount =count;
         return q;

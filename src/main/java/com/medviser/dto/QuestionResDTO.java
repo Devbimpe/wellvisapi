@@ -17,7 +17,7 @@ public class QuestionResDTO {
     public List<CommentsDTO> comments;
     public List<LikesDTO> likes;
     public Long likesCount;
-
+    public String date;
     public String liked;
 
     public QuestionResDTO(Long id, String userId, String userFullName, String title, String description, String category, String anonymous, List<CommentsDTO> comments, List<LikesDTO> likes, Long likesCount, String liked) {
