@@ -1,6 +1,7 @@
 package com.medviser.services;
 
 import com.medviser.Util.Hash;
+import com.medviser.dto.UserDTO;
 import com.medviser.models.Email;
 import com.medviser.models.Response;
 import com.medviser.models.Token;
@@ -156,7 +157,7 @@ public class UserService {
                 todo : refreshing token needs to be discussed if necessary
                  */
 //                refreshAuthenticationDetails(user,token);
-                responseMap.put("userDetails",user);
+                responseMap.put("userDetails",convertUserEntityToUserDTO(user));
                 Response response = new Response("Success","User found",responseMap);
                 return response;
             }else{
@@ -206,6 +207,18 @@ public class UserService {
         return response;
     }
 
+
+
+    private UserDTO convertUserEntityToUserDTO(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setEmail(user.email);
+        userDTO.setId(user.getId());
+        userDTO.setFullName(user.fullName);
+        userDTO.setPhoneNumber(user.phoneNo);
+        userDTO.setGender(user.gender);
+
+        return userDTO;
+    }
 
 
 }
