@@ -22,6 +22,22 @@ public class User extends CommonFields{
 
     public boolean accountVerified;
 
+    public String age;
+
+    public String location;
+
+    public String profilePicture;
+
+    public String heartRate;
+
+    public String bloodPressure;
+
+    public String height;
+
+    public String weight;
+
+    public String socialFlag = "N";
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Question> questions;

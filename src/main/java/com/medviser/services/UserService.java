@@ -67,9 +67,7 @@ public class UserService {
                 passedUser.setUpdatedOn(date);
                 passedUser.accountVerified=false;
 
-                //todo later generate unique token for new user and send to email
-                //todo later for now i am sending hardcoded token
-                String tokenGen = "ABC009";
+                String tokenGen = UUID.randomUUID().toString().substring(0,10);
                 String name = passedUser.fullName;
                 String mail = passedUser.email;
 
@@ -112,6 +110,34 @@ public class UserService {
         return response;
     }
 
+
+    public Object updateProfile(User passedUser, User userTemp){
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            Date date = new Date();
+            userTemp.phoneNo = passedUser.phoneNo;
+            userTemp.age = passedUser.age;
+            userTemp.bloodPressure = passedUser.bloodPressure;
+            userTemp.gender = passedUser.gender;
+            userTemp.heartRate = passedUser.heartRate;
+            userTemp.height = passedUser.height;
+            userTemp.location = passedUser.location;
+            userTemp.weight = passedUser.weight;
+            userTemp.setUpdatedOn(date);
+            userRepository.save(userTemp);
+            Response response = new Response("Success","Update successful",responseMap);
+            return response;
+
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            Response response = new Response("Error","Unable to complete update",responseMap);
+            return response;
+        }
+
+    }
+
+
     public Object validateUser(User passedUser, Device device){
         Map<String,Object> responseMap = new HashMap();
         try {
@@ -119,7 +145,15 @@ public class UserService {
             boolean valid = false;
             if(user!=null){
                 try{
-                    valid = Hash.checkPassword(passedUser.password,user.password);
+                    //valid = Hash.checkPassword(passedUser.password,user.password);
+
+                    if(user.socialFlag.equalsIgnoreCase("Y")){
+                        valid=true;
+                    }
+                    else {
+                        //If N, carry go
+                        valid = Hash.checkPassword(passedUser.password, user.password);
+                    }
                 }catch(Exception e)
                 {
                     e.printStackTrace();

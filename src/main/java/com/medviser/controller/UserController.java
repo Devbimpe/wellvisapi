@@ -34,6 +34,7 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+
     @Autowired
     UserService userService;
 
@@ -51,6 +52,16 @@ public class UserController {
     @PostMapping(value = "/register")
     public Object Register(@RequestBody User passedUser,Device device){
         return userService.registerUser(passedUser,device);
+    }
+
+    @PostMapping(value = "/updateprofile")
+    public Object Register(@RequestBody User passedUser,HttpServletRequest request){
+        String token = request.getHeader(tokenHeader);
+        User userTemp = userService.fetchUserDetails2(token);
+        if(token==null || userTemp==null){
+            return userService.tokenNullOrInvalidResponse(token);
+        }
+        return userService.updateProfile(passedUser,userTemp);
     }
 
     @RequestMapping(value = "/facebook", method = RequestMethod.GET)
