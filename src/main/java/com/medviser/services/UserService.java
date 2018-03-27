@@ -2,6 +2,7 @@ package com.medviser.services;
 
 import com.medviser.Util.Hash;
 import com.medviser.dto.UserDTO;
+import com.medviser.exception.AppException;
 import com.medviser.models.Email;
 import com.medviser.models.Response;
 import com.medviser.models.Token;
@@ -135,6 +136,58 @@ public class UserService {
             return response;
         }
 
+    }
+
+
+    public Object forgotPassword(User passedUser){
+        Map<String,Object> responseMap = new HashMap();
+        String newPassword="";
+        String name = "";
+        String mail = "";
+        String changePasswordLink="";
+        try {
+
+            User user = userRepository.findByEmail(passedUser.email);
+
+            if(user!=null){
+                //newPassword = generalUtil.getCurrentTime();
+                //newPassword = RandomStringUtils.randomAlphanumeric(10);
+                newPassword=UUID.randomUUID().toString().substring(0,10);
+                user.password = Hash.createPassword(newPassword);
+
+                name = user.fullName;
+                mail = passedUser.email;
+                String encryptedMail = Base64.getEncoder().encodeToString(mail.getBytes());
+                //String encryptedMail = Hash.createEncryptedLink(mail);
+                changePasswordLink = messageSource.getMessage("change.password.link",null,locale)+encryptedMail;
+                System.out.println(changePasswordLink);
+
+                Context context = new Context();
+                context.setVariable("password", newPassword);
+                context.setVariable("name", name);
+                context.setVariable("link", changePasswordLink);
+                String message = templateEngine.process("passwordemailtemplate", context);
+
+                mailService.prepareAndSend(message,mail,messageSource.getMessage("password.reset.subject", null, locale));
+
+                userRepository.save(user);
+                Response response = new Response("00","Operation Successful, Password successfully sent to email",responseMap);
+                return response;
+            }else{
+                Response response = new Response("99","Error occurred",responseMap);
+                return response;
+            }
+        }catch (MailException me) {
+            me.printStackTrace();
+            throw new AppException(newPassword,name,mail,messageSource.getMessage("password.reset.subject", null, locale),changePasswordLink);
+
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Response response = new Response("99", "Error occured internally", responseMap);
+            return response;
+        }
     }
 
 

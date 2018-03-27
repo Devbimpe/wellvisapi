@@ -1,7 +1,11 @@
 package com.medviser.controller;
 import com.medviser.Util.FacebookProvider;
 import com.medviser.dto.UserDTO;
+import com.medviser.exception.AppException;
+import com.medviser.models.MailError;
+import com.medviser.models.Response;
 import com.medviser.models.User;
+import com.medviser.repository.MailErrorRepository;
 import com.medviser.security.JwtUser;
 import com.medviser.security.repository.UserRepository;
 import com.medviser.services.TokenService;
@@ -18,6 +22,8 @@ import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by longbridge on 11/4/17.
@@ -42,6 +48,9 @@ public class UserController {
     TokenService tokenService;
 
     @Autowired
+    MailErrorRepository mailErrorRepository;
+
+    @Autowired
     FacebookProvider facebookProvider;
 
     @PostMapping(value = "/signin")
@@ -63,6 +72,34 @@ public class UserController {
         }
         return userService.updateProfile(passedUser,userTemp);
     }
+
+
+    @PostMapping(value = "/forgotpassword")
+    public Object forgotPassword(@RequestBody User user) {
+
+        Map<String, Object> responseMap = new HashMap();
+        try {
+            System.out.println(user);
+            return userService.forgotPassword(user);
+        } catch (AppException e) {
+            e.printStackTrace();
+            String recipient = e.getRecipient();
+            String subject = e.getSubject();
+
+            MailError mailError = new MailError();
+            mailError.setNewPassword(e.getNewPassword());
+            mailError.setName(e.getName());
+            mailError.setRecipient(recipient);
+            mailError.setSubject(subject);
+            mailError.setLink(e.getLink());
+            mailErrorRepository.save(mailError);
+            Response response = new Response("00", "Operation Successful, Trying to send password to email", responseMap);
+            return response;
+            //======================================================
+
+        }
+    }
+
 
     @RequestMapping(value = "/facebook", method = RequestMethod.GET)
     public Object loginToFacebook() {
