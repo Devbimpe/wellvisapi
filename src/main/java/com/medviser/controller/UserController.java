@@ -1,5 +1,6 @@
 package com.medviser.controller;
 import com.medviser.Util.FacebookProvider;
+import com.medviser.dto.PageableDetailsDTO;
 import com.medviser.dto.UserDTO;
 import com.medviser.exception.AppException;
 import com.medviser.models.MailError;
@@ -60,7 +61,22 @@ public class UserController {
 
     @PostMapping(value = "/register")
     public Object Register(@RequestBody User passedUser,Device device){
-        return userService.registerUser(passedUser,device);
+        try {
+            return userService.registerUser(passedUser, device);
+        }catch (AppException e){
+            e.printStackTrace();
+            String recipient = e.getRecipient();
+            String subject = e.getSubject();
+            MailError mailError = new MailError();
+            mailError.setName(e.getName());
+            mailError.setRecipient(recipient);
+            mailError.setSubject(subject);
+            mailError.setLink(e.getLink());
+            mailError.setMailType("welcome");
+            mailErrorRepository.save(mailError);
+            Response response = new Response("00", "Registration successful, Trying to send welcome email", "success");
+            return response;
+        }
     }
 
     @PostMapping(value = "/updateprofile")
@@ -101,26 +117,6 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/facebook", method = RequestMethod.GET)
-    public Object loginToFacebook() {
-        System.out.println(facebookProvider.getFacebookUserData(new UserDTO()));
-        return facebookProvider.getFacebookUserData(new UserDTO());
-    }
-
-
-
-    //FacebookConnectionFactory connectionFactory = new FacebookConnectionFactory("353313211832474","0d5651dc9ac7aff6376949b31d25c76a");
-
-    //OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
-
-    //OAuth2Parameters params = new OAuth2Parameters();
-
-    //params.setRedirectUri(REDIRECT_URI);
-
-   // params.setScope(SCOPE);
-
-   // String authorizeUrl = oauthOperations.buildAuthorizeUrl(params);
-
 
     @GetMapping(value = "/getuserdetails")
     public Object fetchUserDetails(HttpServletRequest request){
@@ -138,6 +134,26 @@ public class UserController {
         //======================================================
         return userService.fetchUserDetails(user.getUsername(),token);
     }
+
+
+    @GetMapping(value = "/getuserprofile")
+    public Object fetchUserProfile(HttpServletRequest request, PageableDetailsDTO pageableDetailsDTO){
+        /*
+        This is needed on any Endpoint that requires authorization.
+         Any method you want to implement this should
+        have the HttpServletRequest as param.
+         */
+        //======================================================
+        String token = request.getHeader(tokenHeader);
+        JwtUser user = userService.getAuthenticationDetails(token);
+        if(token==null || user.getUsername()==null){
+            return userService.tokenNullOrInvalidResponse(token);
+        }
+        //======================================================
+        return userService.fetchUserProfile(user.getUsername(),pageableDetailsDTO);
+    }
+
+
 //
 //    @PostMapping(value = "/validateToken")
 //    public Object validateToken(@RequestBody UserEmailTokenDTO userEmailTokenDTO){

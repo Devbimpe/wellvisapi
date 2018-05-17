@@ -38,6 +38,9 @@ public class User extends CommonFields{
 
     public String socialFlag = "N";
 
+    @OneToOne(cascade = CascadeType.ALL)
+    public HealthWorker healthWorker;
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Question> questions;

@@ -12,6 +12,7 @@ public class UserDTO {
 
     private String gender;
     private String phoneNumber;
+    //private List<QuestionResDTO> questionResDTOList
 
 
     public Long getId() {

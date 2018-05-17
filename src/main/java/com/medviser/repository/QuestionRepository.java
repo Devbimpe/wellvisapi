@@ -12,4 +12,6 @@ import java.util.List;
  */
 public interface QuestionRepository extends JpaRepository<Question,Long> {
     Page<Question> findAllByOrderByCreatedOnDesc(Pageable pageable);
+    Page<Question> findAllByOrderByTrendingCountDesc(Pageable pageable);
+    Page<Question> findByCategory(String category, Pageable pageable);
 }

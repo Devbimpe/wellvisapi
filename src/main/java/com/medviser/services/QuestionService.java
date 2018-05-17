@@ -21,6 +21,10 @@ public interface QuestionService {
 
     Object getLatestQuestions(PageableDetailsDTO pageableDetailsDTO);
 
+    Object getTrendingQuestions(PageableDetailsDTO pageableDetailsDTO);
+
+    Object getByCategory(String category, PageableDetailsDTO pageableDetailsDTO);
+
     Object addLike(CommentLikesDTO commentLikesDTO, User user);
 
     Object addComment(CommentLikesDTO commentLikesDTO, User user);

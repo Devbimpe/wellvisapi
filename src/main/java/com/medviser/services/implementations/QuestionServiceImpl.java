@@ -100,6 +100,11 @@ public class QuestionServiceImpl implements QuestionService {
                 if(likes != null){
                     likeRepository.delete(likes);
                     Long count = likeRepository.countByQuestion(q);
+
+                    if(q.trendingCount != 0) {
+                        q.trendingCount = q.trendingCount - 1;
+                    }
+                    questionRepository.save(q);
                     responseMap.put("likes",count);
                     Response response = new Response("Success","Operation Successful",responseMap);
                     return response;
@@ -111,7 +116,10 @@ public class QuestionServiceImpl implements QuestionService {
                     l.setCreatedOn(date);
                     l.setUpdatedOn(date);
                     likeRepository.save(l);
+                    q.trendingCount = q.trendingCount+1;
+                    questionRepository.save(q);
                     Long count = likeRepository.countByQuestion(q);
+
                     responseMap.put("likes",count);
                     Response response = new Response("Success","Operation Successful",responseMap);
                     return response;
@@ -218,6 +226,38 @@ public class QuestionServiceImpl implements QuestionService {
             e.printStackTrace();
         }
         Response response = new Response("Error","error occured",responseMap);
+        return response;
+    }
+
+    @Override
+    public Object getTrendingQuestions(PageableDetailsDTO pageableDetailsDTO) {
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            Page<Question> trendingQuestions = questionRepository.findAllByOrderByTrendingCountDesc(new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
+            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(trendingQuestions.getContent());
+            responseMap.put("Questions",qdto);
+            Response response = new Response("Success","Operation Successful",responseMap);
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","error occurred",responseMap);
+        return response;
+    }
+
+    @Override
+    public Object getByCategory(String category, PageableDetailsDTO pageableDetailsDTO) {
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            Page<Question> questions = questionRepository.findByCategory(category, new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
+            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(questions.getContent());
+            responseMap.put("Questions",qdto);
+            Response response = new Response("Success","Operation Successful",responseMap);
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","error occurred",responseMap);
         return response;
     }
 

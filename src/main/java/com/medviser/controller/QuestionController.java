@@ -65,9 +65,21 @@ public class QuestionController {
     }
 
     @PostMapping(value = "/getlatest")
-    public Object addComment(@RequestBody PageableDetailsDTO pageableDetailsDTO, HttpServletRequest request){
+    public Object getLatest(@RequestBody PageableDetailsDTO pageableDetailsDTO, HttpServletRequest request){
 
         return questionService.getLatestQuestions(pageableDetailsDTO);
+    }
+
+    @PostMapping(value = "/gettrending")
+    public Object getTrending(@RequestBody PageableDetailsDTO pageableDetailsDTO, HttpServletRequest request){
+
+        return questionService.getTrendingQuestions(pageableDetailsDTO);
+    }
+
+    @PostMapping(value = "/{category}/getbycategory")
+    public Object getByCategory(@RequestBody PageableDetailsDTO pageableDetailsDTO, HttpServletRequest request){
+
+        return questionService.getTrendingQuestions(pageableDetailsDTO);
     }
 
 

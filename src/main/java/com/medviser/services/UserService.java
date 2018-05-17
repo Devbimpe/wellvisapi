@@ -1,12 +1,14 @@
 package com.medviser.services;
 
 import com.medviser.Util.Hash;
+import com.medviser.dto.PageableDetailsDTO;
 import com.medviser.dto.UserDTO;
 import com.medviser.exception.AppException;
 import com.medviser.models.Email;
 import com.medviser.models.Response;
 import com.medviser.models.Token;
 import com.medviser.models.User;
+import com.medviser.repository.HealthWorkerRepository;
 import com.medviser.repository.TokenRepository;
 import com.medviser.security.JwtTokenUtil;
 import com.medviser.security.JwtUser;
@@ -49,6 +51,9 @@ public class UserService {
     TokenRepository tokenRepository;
 
     @Autowired
+    HealthWorkerRepository healthWorkerRepository;
+
+    @Autowired
     private UserDetailsService userDetailsService;
 
     private Locale locale = LocaleContextHolder.getLocale();
@@ -68,23 +73,55 @@ public class UserService {
                 passedUser.setUpdatedOn(date);
                 passedUser.accountVerified=false;
 
-                String tokenGen = UUID.randomUUID().toString().substring(0,10);
-                String name = passedUser.fullName;
-                String mail = passedUser.email;
 
-                Context context = new Context();
-                context.setVariable("name", name);
-                context.setVariable("code", tokenGen);
-                String message = templateEngine.process("emailtemplate", context);
-
-                mailService.prepareAndSend(message,mail,messageSource.getMessage("host.sendtoken.subject", null, locale));
-
+                if(passedUser.healthWorker != null){
+                    passedUser.healthWorker.setCreatedOn(date);
+                    passedUser.healthWorker.setUpdatedOn(date);
+                    //passedUser.designer.userId = passedUser.id;
+                    passedUser.healthWorker.user=passedUser;
+//                    if(passedUser.healthWorker.licenseFile != null) {
+//                        try {
+//                            String fileName = passedUser.email.substring(0, 3) + getCurrentTime();
+//                            String base64Img = passedUser.healthWorker.licenseFile;
+//                            CloudinaryResponse c = generalUtil.uploadToCloud(base64Img,fileName,"designerlogos");
+//                            passedUser.healthWorker.logo = c.getUrl();
+//                            passedUser.healthWorker.publicId=c.getPublicId();
+//                        } catch (Exception ex) {
+//                            ex.printStackTrace();
+//                            Response response = new Response("99","Error occurred internally",responseMap);
+//                            return response;
+//                        }
+//                    }
+                }
+                 healthWorkerRepository.save(passedUser.healthWorker);
                 userRepository.save(passedUser);
                 Token softToken= new Token();
+                String tokenGen = UUID.randomUUID().toString().substring(0,10);
                 softToken.setToken(tokenGen);
                 softToken.setUser(passedUser);
                 tokenRepository.save(softToken);
 
+                String message = "";
+                String name = passedUser.fullName;
+                String mail = passedUser.email;
+                try {
+                    Context context = new Context();
+                    context.setVariable("name", name);
+                    context.setVariable("code", tokenGen);
+                    if (passedUser.healthWorker != null) {
+                        message = templateEngine.process("healthworkerwelcomeemail", context);
+                    } else {
+                        message = templateEngine.process("emailtemplate", context);
+                    }
+
+
+                    mailService.prepareAndSend(message, mail, messageSource.getMessage("host.sendtoken.subject", null, locale));
+
+                }catch (MailException me){
+                    me.printStackTrace();
+                    throw new AppException("",passedUser.fullName, user.email,messageSource.getMessage("host.sendtoken.subject", null, locale),"");
+
+                }
                 final UserDetails userDetails = userDetailsService.loadUserByUsername(passedUser.email);
                 System.out.println("userdetails is "+userDetails.toString());
                 final String token = jwtTokenUtil.generateToken(userDetails, device);
@@ -92,7 +129,6 @@ public class UserService {
                 //implement sessionid
                 responseMap.put("token",token);
 
-                //responseMap.put("userId",passedUser.id);
 
                 Response response = new Response("Success","Registration successful",responseMap);
                 return response;
@@ -258,6 +294,27 @@ public class UserService {
         return response;
     }
 
+
+    public Object fetchUserProfile(String email, PageableDetailsDTO pageableDetailsDTO){
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            User user = userRepository.findByEmail(email);
+            if(user!=null){
+                responseMap.put("userDetails",convertUserEntityToUserDTO(user));
+                Response response = new Response("Success","User found",responseMap);
+                return response;
+            }else{
+                Response response = new Response("Error","User not found",responseMap);
+                return response;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","Error occurred internally",responseMap);
+        return response;
+    }
+
+
     public User fetchUserDetails2(String token){
         JwtUser user = getAuthenticationDetails(token);
         if(user!=null){
@@ -303,6 +360,18 @@ public class UserService {
         userDTO.setFullName(user.fullName);
         userDTO.setPhoneNumber(user.phoneNo);
         userDTO.setGender(user.gender);
+
+        return userDTO;
+    }
+
+    private UserDTO convertUserEntityToUserDTO2(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setEmail(user.email);
+        userDTO.setId(user.getId());
+        userDTO.setFullName(user.fullName);
+        userDTO.setPhoneNumber(user.phoneNo);
+        userDTO.setGender(user.gender);
+
 
         return userDTO;
     }

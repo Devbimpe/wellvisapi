@@ -16,6 +16,8 @@ public class Question extends CommonFields{
 
     public String evidenceName;
 
+    public int trendingCount=0;
+
     @OneToMany(mappedBy = "question",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     public List<Comments> comments;
     @OneToMany(mappedBy = "question",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
