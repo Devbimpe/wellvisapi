@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94941a43-43c7-4af8-aaf9-abeb897b5b09" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/controller/HealthWorkerController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/models/BookMark.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/models/Flag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/models/HealthWorker.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/models/Star.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/repository/HealthWorkerRepository.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/healthworkerwelcomeemail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/Util/ResendMailUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/Util/ResendMailUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/controller/QuestionController.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/controller/QuestionController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/controller/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/dto/UserDTO.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/dto/UserDTO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/models/MailError.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/models/MailError.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/models/Question.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/models/Question.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/models/User.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/models/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/repository/QuestionRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/repository/QuestionRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/services/QuestionService.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/services/QuestionService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/services/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/services/UserService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/services/implementations/QuestionServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/services/implementations/QuestionServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
-    </list>
+    <list default="true" id="94941a43-43c7-4af8-aaf9-abeb897b5b09" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -71,7 +50,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="109">
-              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -81,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="173">
-              <caret line="134" column="37" lean-forward="true" selection-start-line="134" selection-start-column="37" selection-end-line="134" selection-end-column="37" />
+              <caret line="134" column="37" lean-forward="false" selection-start-line="134" selection-start-column="37" selection-end-line="134" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -90,8 +69,8 @@
       <file leaf-file-name="UserService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/services/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="281" column="6" lean-forward="false" selection-start-line="281" selection-start-column="6" selection-end-line="281" selection-end-column="6" />
+            <state relative-caret-position="173">
+              <caret line="280" column="19" lean-forward="false" selection-start-line="280" selection-start-column="19" selection-end-line="280" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -114,7 +93,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/healthworkerwelcomeemail.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
-              <caret line="8" column="10" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+              <caret line="8" column="10" lean-forward="false" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -164,7 +143,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/models/HealthWorker.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+              <caret line="18" column="27" lean-forward="false" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1124,12 +1103,12 @@
       <workItem from="1522935696238" duration="3261000" />
       <workItem from="1523970085240" duration="2042000" />
       <workItem from="1525039056063" duration="6163000" />
-      <workItem from="1526461858955" duration="11116000" />
+      <workItem from="1526461858955" duration="12126000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60154000" />
+    <option name="totallyTimeSpent" value="61164000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1362" height="697" extended-state="6" />
@@ -1524,7 +1503,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/models/HealthWorker.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+          <caret line="18" column="27" lean-forward="false" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1558,7 +1537,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/healthworkerwelcomeemail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="8" column="10" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+          <caret line="8" column="10" lean-forward="false" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1566,7 +1545,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="109">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1585,15 +1564,15 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/controller/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="173">
-          <caret line="134" column="37" lean-forward="true" selection-start-line="134" selection-start-column="37" selection-end-line="134" selection-end-column="37" />
+          <caret line="134" column="37" lean-forward="false" selection-start-line="134" selection-start-column="37" selection-end-line="134" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/services/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="281" column="6" lean-forward="false" selection-start-line="281" selection-start-column="6" selection-end-line="281" selection-end-column="6" />
+        <state relative-caret-position="173">
+          <caret line="280" column="19" lean-forward="false" selection-start-line="280" selection-start-column="19" selection-end-line="280" selection-end-column="19" />
           <folding />
         </state>
       </provider>
