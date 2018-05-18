@@ -2,9 +2,7 @@ package com.medviser.services.implementations;
 
 import com.medviser.dto.*;
 import com.medviser.models.*;
-import com.medviser.repository.CommentRepository;
-import com.medviser.repository.LikeRepository;
-import com.medviser.repository.QuestionRepository;
+import com.medviser.repository.*;
 import com.medviser.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +32,12 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     CommentRepository commentRepository;
+
+    @Autowired
+    FlagRepository flagRepository;
+
+    @Autowired
+    BookMarkRepository bookMarkRepository;
 
     @Value("${s.wellvisimages.folder}")
     private String wellvisImagesFolder;
@@ -133,6 +137,9 @@ public class QuestionServiceImpl implements QuestionService {
         return response;
     }
 
+
+
+
     @Override
     public Object addComment(CommentLikesDTO commentLikesDTO, User user) {
         Map<String,Object> responseMap = new HashMap();
@@ -154,6 +161,71 @@ public class QuestionServiceImpl implements QuestionService {
                 //List<Comments> comments=commentRepository.findByQuestion(q);
                 //List<CommentsDTO> commentsDTOS = convEntsToDTOs(comments);
                 //responseMap.put("comments",commentsDTOS);
+                responseMap.put("success","success");
+                Response response = new Response("Success","Operation Successful",responseMap);
+                return response;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","error occurred",responseMap);
+        return response;
+    }
+
+
+    @Override
+    public Object flagQuestion(Long questionId, User user) {
+        Map<String,Object> responseMap = new HashMap();
+
+        try {
+            Date date = new Date();
+            Question q = questionRepository.findOne(questionId);
+            if(user != null && q != null){
+                Flag flag = flagRepository.findByUser(user);
+                if(flag != null){
+                    flagRepository.delete(flag);
+                }
+                else {
+                    Flag f = new Flag();
+                    f.question = q;
+                    f.user = user;
+                    f.setCreatedOn(date);
+                    f.setUpdatedOn(date);
+                    flagRepository.save(f);
+                }
+                responseMap.put("success","success");
+                Response response = new Response("Success","Operation Successful",responseMap);
+                return response;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","error occurred",responseMap);
+        return response;
+    }
+
+    @Override
+    public Object bookMarkQuestion(Long questionId, User user) {
+        Map<String,Object> responseMap = new HashMap();
+
+        try {
+            Date date = new Date();
+            Question q = questionRepository.findOne(questionId);
+            if(user != null && q != null){
+                BookMark bookMark = bookMarkRepository.findByUser(user);
+                if(bookMark != null){
+                    bookMarkRepository.delete(bookMark);
+                }
+                else {
+                    BookMark b = new BookMark();
+                    b.question = q;
+                    b.user = user;
+                    b.setCreatedOn(date);
+                    b.setUpdatedOn(date);
+                    bookMarkRepository.save(b);
+                }
                 responseMap.put("success","success");
                 Response response = new Response("Success","Operation Successful",responseMap);
                 return response;

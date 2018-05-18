@@ -19,6 +19,11 @@ public class QuestionResDTO {
     public Long likesCount;
     public String date;
     public String liked;
+    public int stars;
+
+    public boolean bookmarked;
+    public boolean flagged;
+
 
     public QuestionResDTO(Long id, String userId, String userFullName, String title, String description, String category, String anonymous, List<CommentsDTO> comments, List<LikesDTO> likes, Long likesCount, String liked) {
         this.id = id;

@@ -28,4 +28,8 @@ public interface QuestionService {
     Object addLike(CommentLikesDTO commentLikesDTO, User user);
 
     Object addComment(CommentLikesDTO commentLikesDTO, User user);
+
+    Object flagQuestion(Long questionId, User user);
+
+    Object bookMarkQuestion(Long questionId, User user);
 }

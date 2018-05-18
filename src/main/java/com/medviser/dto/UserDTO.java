@@ -1,5 +1,7 @@
 package com.medviser.dto;
 
+import java.util.List;
+
 /**
  * Created by Longbridge on 10/11/2017.
  */
@@ -12,7 +14,7 @@ public class UserDTO {
 
     private String gender;
     private String phoneNumber;
-    //private List<QuestionResDTO> questionResDTOList
+    private List<QuestionResDTO> questions;
 
 
     public Long getId() {
@@ -61,6 +63,14 @@ public class UserDTO {
 
     public void setProvider(String provider) {
         this.provider = provider;
+    }
+
+    public List<QuestionResDTO> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<QuestionResDTO> questions) {
+        this.questions = questions;
     }
 
     public UserDTO(Long id, String fullName, String email) {

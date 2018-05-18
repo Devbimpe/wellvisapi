@@ -23,6 +23,11 @@ public class Question extends CommonFields{
     @OneToMany(mappedBy = "question",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     public List<Likes> likes;
 
+    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    public List<Flag> flags;
+
+    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    public List<BookMark> bookMarks;
 
     public Question() {
     }

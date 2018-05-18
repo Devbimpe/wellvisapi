@@ -96,6 +96,28 @@ public class QuestionController {
         System.out.println("user is" + userTemp);
         return questionService.getQuestion(id,userTemp);
     }
+
+    @PostMapping(value = "/flagThread/{questionId}")
+    public Object flagQuestion(@PathVariable Long questionId, HttpServletRequest request){
+        String token = request.getHeader(tokenHeader);
+        User user = userUtil.fetchUserDetails2(token);
+        if(token==null || user==null){
+            return userUtil.tokenNullOrInvalidResponse(token);
+        }
+        return questionService.flagQuestion(questionId,user);
+    }
+
+    @PostMapping(value = "/bookmarkThread/{questionId}")
+    public Object bookMarkQuestion(@PathVariable Long questionId, HttpServletRequest request){
+        String token = request.getHeader(tokenHeader);
+        User user = userUtil.fetchUserDetails2(token);
+        if(token==null || user==null){
+            return userUtil.tokenNullOrInvalidResponse(token);
+        }
+        return questionService.bookMarkQuestion(questionId,user);
+    }
+
+
     @RequestMapping(
             value = "/**",
             method = RequestMethod.OPTIONS

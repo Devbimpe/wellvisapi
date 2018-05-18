@@ -136,8 +136,8 @@ public class UserController {
     }
 
 
-    @GetMapping(value = "/getuserprofile")
-    public Object fetchUserProfile(HttpServletRequest request, PageableDetailsDTO pageableDetailsDTO){
+    @PostMapping(value = "/getuserprofile")
+    public Object fetchUserProfile(HttpServletRequest request, @RequestBody PageableDetailsDTO pageableDetailsDTO){
         /*
         This is needed on any Endpoint that requires authorization.
          Any method you want to implement this should

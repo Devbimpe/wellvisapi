@@ -1,15 +1,10 @@
 package com.medviser.services;
 
 import com.medviser.Util.Hash;
-import com.medviser.dto.PageableDetailsDTO;
-import com.medviser.dto.UserDTO;
+import com.medviser.dto.*;
 import com.medviser.exception.AppException;
-import com.medviser.models.Email;
-import com.medviser.models.Response;
-import com.medviser.models.Token;
-import com.medviser.models.User;
-import com.medviser.repository.HealthWorkerRepository;
-import com.medviser.repository.TokenRepository;
+import com.medviser.models.*;
+import com.medviser.repository.*;
 import com.medviser.security.JwtTokenUtil;
 import com.medviser.security.JwtUser;
 import com.medviser.security.repository.UserRepository;
@@ -17,6 +12,8 @@ import com.medviser.security.service.JwtAuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.mobile.device.Device;
@@ -26,6 +23,8 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -49,6 +48,19 @@ public class UserService {
 
     @Autowired
     TokenRepository tokenRepository;
+
+    @Autowired
+    QuestionRepository questionRepository;
+
+    @Autowired
+    LikeRepository likeRepository;
+
+    @Autowired
+    FlagRepository flagRepository;
+
+    @Autowired
+    BookMarkRepository bookMarkRepository;
+
 
     @Autowired
     HealthWorkerRepository healthWorkerRepository;
@@ -300,7 +312,13 @@ public class UserService {
         try {
             User user = userRepository.findByEmail(email);
             if(user!=null){
-                responseMap.put("userDetails",convertUserEntityToUserDTO(user));
+                Page<Question> questions = questionRepository.findByUser(user,new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
+                UserDTO userDTO = convertUserEntityToUserDTO(user);
+                if(questions != null) {
+                    userDTO.setQuestions(convertQuestionEntitiesToDTO(questions.getContent()));
+                }
+
+                responseMap.put("userDetails",userDTO);
                 Response response = new Response("Success","User found",responseMap);
                 return response;
             }else{
@@ -375,6 +393,107 @@ public class UserService {
 
         return userDTO;
     }
+
+    private QuestionResDTO convertQuestionEntityToDTO(Question question){
+        QuestionResDTO q = new QuestionResDTO();
+        List<CommentsDTO> cmts = convEntsToDTOs(question.comments);
+        List<LikesDTO> likes = convertEntsToDTOs(question.likes);
+        q.id=question.getId();
+        q.comments = cmts;
+        q.likes=likes;
+        Long count = likeRepository.countByQuestion(question);
+//        if(question.anonymous==true){
+//            q.anonymous="true";
+//            q.userFullName = "Anonymous";
+//        }
+//        else {
+//            q.userFullName = question.user.fullName;
+//            q.anonymous="false";
+//        }
+        //q.anonymous = question.anonymous;
+        q.category = question.category;
+        q.description = question.description;
+        Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        q.date=formatter.format(question.getCreatedOn());
+        //q.title = question.title;
+
+
+        q.userId = question.user.getId().toString();
+        q.likesCount =count;
+        Flag flag = flagRepository.findByUserAndQuestion(question.user,question);
+        if(flag != null){
+            q.flagged=true;
+        }
+        else {
+            q.flagged=false;
+        }
+
+        BookMark bookMark = bookMarkRepository.findByUserAndQuestion(question.user,question);
+        if(bookMark != null){
+            q.bookmarked=true;
+        }
+        else {
+            q.bookmarked=false;
+        }
+        return q;
+    }
+
+    private List<QuestionResDTO> convertQuestionEntitiesToDTO(List<Question> questions){
+        List<QuestionResDTO> questionResDTOS= new ArrayList<QuestionResDTO>();
+
+        for(Question question: questions){
+            QuestionResDTO questionResDTO = convertQuestionEntityToDTO(question);
+            questionResDTOS.add(questionResDTO);
+        }
+        return questionResDTOS;
+    }
+
+    //----------CONVERT ENTITY TO DTOS-----------//
+    private CommentsDTO convertEntityToDTO(Comments c){
+        CommentsDTO commentsDTO = new CommentsDTO();
+        commentsDTO.setComment(c.comment);
+        commentsDTO.setId(c.getId());
+
+        Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String stringDate = formatter.format(c.getCreatedOn());
+        commentsDTO.setCreatedDate(stringDate);
+        commentsDTO.setUser(convertUserEntityToUserDTO(c.user));
+
+        return commentsDTO;
+
+    }
+
+    private List<CommentsDTO> convEntsToDTOs(List<Comments> c){
+        List<CommentsDTO> commentsDTOS = new ArrayList<CommentsDTO>();
+
+        for(Comments comments: c){
+            CommentsDTO commentsDTO = convertEntityToDTO(comments);
+            commentsDTOS.add(commentsDTO);
+        }
+        return commentsDTOS;
+    }
+
+    private LikesDTO convEntityToDTO(Likes l){
+        LikesDTO likesDTO = new LikesDTO();
+
+        likesDTO.setId(l.getId());
+        likesDTO.setUser(convertUserEntityToUserDTO(l.user));
+        return likesDTO;
+
+    }
+
+    private List<LikesDTO> convertEntsToDTOs(List<Likes> l){
+        List<LikesDTO> likesDTOS = new ArrayList<LikesDTO>();
+
+        for(Likes likes: l){
+            LikesDTO likesDTO = convEntityToDTO(likes);
+            likesDTOS.add(likesDTO);
+        }
+        return likesDTOS;
+
+    }
+
 
 
 }
