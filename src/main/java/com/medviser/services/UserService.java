@@ -104,8 +104,9 @@ public class UserService {
 //                            return response;
 //                        }
 //                    }
+                    healthWorkerRepository.save(passedUser.healthWorker);
                 }
-                 healthWorkerRepository.save(passedUser.healthWorker);
+
                 userRepository.save(passedUser);
                 Token softToken= new Token();
                 String tokenGen = UUID.randomUUID().toString().substring(0,10);
