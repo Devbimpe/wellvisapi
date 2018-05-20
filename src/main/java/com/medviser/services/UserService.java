@@ -188,9 +188,41 @@ public class UserService {
     }
 
 
+    public Object changePassword(PassWordChangeDTO passWordChangeDTO){
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            Date date = new Date();
+            User userTemp = userRepository.findByEmail(passWordChangeDTO.getEmail());
+            if(passWordChangeDTO.getNewPassword() != null) {
+                if (passWordChangeDTO.getCode().equalsIgnoreCase(userTemp.changePasswordCode)) {
+                    userTemp.password = passWordChangeDTO.getNewPassword();
+                }
+                else {
+                    Response response = new Response("Error","Code does not match the one sent to email",responseMap);
+                    return response;
+                }
+            }else {
+                Response response = new Response("Error","New password cannot be empty",responseMap);
+                return response;
+            }
+            userTemp.setUpdatedOn(date);
+            userRepository.save(userTemp);
+            Response response = new Response("Success","Update successful",responseMap);
+            return response;
+
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            Response response = new Response("Error","Unable to complete update",responseMap);
+            return response;
+        }
+
+    }
+
+
     public Object forgotPassword(User passedUser){
         Map<String,Object> responseMap = new HashMap();
-        String newPassword="";
+        String code="";
         String name = "";
         String mail = "";
         String changePasswordLink="";
@@ -201,20 +233,20 @@ public class UserService {
             if(user!=null){
                 //newPassword = generalUtil.getCurrentTime();
                 //newPassword = RandomStringUtils.randomAlphanumeric(10);
-                newPassword=UUID.randomUUID().toString().substring(0,10);
-                user.password = Hash.createPassword(newPassword);
+                code=UUID.randomUUID().toString().substring(0,10);
+                user.changePasswordCode = Hash.createPassword(code);
 
                 name = user.fullName;
                 mail = passedUser.email;
-                String encryptedMail = Base64.getEncoder().encodeToString(mail.getBytes());
+                //String encryptedMail = Base64.getEncoder().encodeToString(mail.getBytes());
                 //String encryptedMail = Hash.createEncryptedLink(mail);
-                changePasswordLink = messageSource.getMessage("change.password.link",null,locale)+encryptedMail;
-                System.out.println(changePasswordLink);
+                //changePasswordLink = messageSource.getMessage("change.password.link",null,locale)+encryptedMail;
+                //System.out.println(changePasswordLink);
 
                 Context context = new Context();
-                context.setVariable("password", newPassword);
+                context.setVariable("code", code);
                 context.setVariable("name", name);
-                context.setVariable("link", changePasswordLink);
+                //context.setVariable("link", changePasswordLink);
                 String message = templateEngine.process("passwordemailtemplate", context);
 
                 mailService.prepareAndSend(message,mail,messageSource.getMessage("password.reset.subject", null, locale));
@@ -228,7 +260,7 @@ public class UserService {
             }
         }catch (MailException me) {
             me.printStackTrace();
-            throw new AppException(newPassword,name,mail,messageSource.getMessage("password.reset.subject", null, locale),changePasswordLink);
+            throw new AppException(code,name,mail,messageSource.getMessage("password.reset.subject", null, locale),changePasswordLink);
 
 
         }
@@ -379,6 +411,9 @@ public class UserService {
         userDTO.setFullName(user.fullName);
         userDTO.setPhoneNumber(user.phoneNo);
         userDTO.setGender(user.gender);
+        if(user.healthWorker != null){
+            userDTO.healthWorker=user.healthWorker;
+        }
 
         return userDTO;
     }

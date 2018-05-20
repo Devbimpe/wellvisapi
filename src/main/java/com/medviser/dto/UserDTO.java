@@ -1,5 +1,7 @@
 package com.medviser.dto;
 
+import com.medviser.models.HealthWorker;
+
 import java.util.List;
 
 /**
@@ -15,6 +17,8 @@ public class UserDTO {
     private String gender;
     private String phoneNumber;
     private List<QuestionResDTO> questions;
+
+    public HealthWorker healthWorker;
 
 
     public Long getId() {

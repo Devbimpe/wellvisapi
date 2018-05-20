@@ -1,6 +1,7 @@
 package com.medviser.controller;
 import com.medviser.Util.FacebookProvider;
 import com.medviser.dto.PageableDetailsDTO;
+import com.medviser.dto.PassWordChangeDTO;
 import com.medviser.dto.UserDTO;
 import com.medviser.exception.AppException;
 import com.medviser.models.MailError;
@@ -90,6 +91,13 @@ public class UserController {
     }
 
 
+    @PostMapping(value = "/changepassword")
+    public Object changePassword(@RequestBody PassWordChangeDTO passWordChangeDTO){
+
+        return userService.changePassword(passWordChangeDTO);
+    }
+
+
     @PostMapping(value = "/forgotpassword")
     public Object forgotPassword(@RequestBody User user) {
 
@@ -115,6 +123,8 @@ public class UserController {
 
         }
     }
+
+
 
 
 

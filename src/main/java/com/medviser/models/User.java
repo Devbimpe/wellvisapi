@@ -38,6 +38,9 @@ public class User extends CommonFields{
 
     public String socialFlag = "N";
 
+    @JsonIgnore
+    public String changePasswordCode;
+
     @OneToOne(cascade = CascadeType.ALL)
     public HealthWorker healthWorker;
 

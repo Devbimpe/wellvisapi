@@ -1,5 +1,7 @@
 package com.medviser.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -24,6 +26,7 @@ public class HealthWorker extends CommonFields{
 
     public String publicId;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     public User user;
 
