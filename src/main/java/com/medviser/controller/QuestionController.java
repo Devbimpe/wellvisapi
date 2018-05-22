@@ -97,6 +97,27 @@ public class QuestionController {
         return questionService.getQuestion(id,userTemp);
     }
 
+    @GetMapping(value = "/getbookmarkedfeeds")
+    public Object getBookmarkedFeeds(HttpServletRequest request){
+        String token = request.getHeader(tokenHeader);
+        User userTemp = userUtil.fetchUserDetails2(token);
+        if(token==null || userTemp==null){
+            return userUtil.tokenNullOrInvalidResponse(token);
+        }
+
+        return questionService.getBookmarkedFeeds(userTemp);
+    }
+
+    @GetMapping(value = "/getflaggedfeeds")
+    public Object getFlaggedFeeds(HttpServletRequest request){
+        String token = request.getHeader(tokenHeader);
+        User userTemp = userUtil.fetchUserDetails2(token);
+        if(token==null || userTemp==null){
+            return userUtil.tokenNullOrInvalidResponse(token);
+        }
+        return questionService.getFlaggedFeeds(userTemp);
+    }
+
     @PostMapping(value = "/flagThread/{questionId}")
     public Object flagQuestion(@PathVariable Long questionId, HttpServletRequest request){
         String token = request.getHeader(tokenHeader);

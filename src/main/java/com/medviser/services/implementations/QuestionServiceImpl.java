@@ -239,6 +239,41 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public Object getBookmarkedFeeds(User user) {
+        Map<String,Object> responseMap = new HashMap();
+
+        try {
+
+                List<QuestionResDTO> q= convertQuestionEntitiesToDTO(bookMarkRepository.findQuestion(user));
+
+                responseMap.put("questions",q);
+                Response response = new Response("Success","Operation Successful",responseMap);
+                return response;
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","error occurred",responseMap);
+        return response;
+    }
+
+    @Override
+    public Object getFlaggedFeeds(User user) {
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            List<QuestionResDTO> q= convertQuestionEntitiesToDTO(flagRepository.findUserQuestions(user));
+            responseMap.put("questions",q);
+            Response response = new Response("Success","Operation Successful",responseMap);
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","error occurred",responseMap);
+        return response;
+    }
+
+    @Override
     public Object getQuestion(Long id, User user) {
 
         Map<String,Object> responseMap = new HashMap();

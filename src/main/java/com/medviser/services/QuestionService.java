@@ -32,4 +32,8 @@ public interface QuestionService {
     Object flagQuestion(Long questionId, User user);
 
     Object bookMarkQuestion(Long questionId, User user);
+
+    Object getBookmarkedFeeds(User user);
+
+    Object getFlaggedFeeds(User user);
 }
