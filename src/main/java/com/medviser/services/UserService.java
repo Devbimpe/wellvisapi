@@ -234,7 +234,7 @@ public class UserService {
                 //newPassword = generalUtil.getCurrentTime();
                 //newPassword = RandomStringUtils.randomAlphanumeric(10);
                 code=UUID.randomUUID().toString().substring(0,10);
-                user.changePasswordCode = Hash.createPassword(code);
+                user.changePasswordCode = code;
 
                 name = user.fullName;
                 mail = passedUser.email;
