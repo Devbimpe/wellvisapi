@@ -5,6 +5,7 @@ package com.medviser.models;
  */
 public class LogInResp {
     private String token;
+    private String fullName;
     private String role;
 
     public LogInResp(String token, String role) {
@@ -26,6 +27,14 @@ public class LogInResp {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public LogInResp() {

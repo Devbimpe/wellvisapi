@@ -309,6 +309,7 @@ public class UserService {
                 else {
                     logInResp.setRole("user");
                 }
+                logInResp.setFullName(user.fullName);
                 logInResp.setToken(token);
                // responseMap.put("token",token);
                 Response response = new Response("Success","Login successful",logInResp);
