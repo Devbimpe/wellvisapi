@@ -34,11 +34,17 @@ public class UserGroupServiceImpl implements UserGroupService {
         try {
             UserGroup userGroup = new UserGroup();
             List<User> userList=new ArrayList<>();
-
+            System.out.println(userGroupDTO.getUserIds());
             for(Long id: userGroupDTO.getUserIds()){
-                userList.add(userRepository.findById(id));
+               User user = userRepository.findById(id);
+               if(user != null) {
+                   userList.add(user);
+               }
             }
+            System.out.println(userList);
+            userGroup.setName(userGroupDTO.getName());
             userGroup.setUsers(userList);
+            userGroupRepository.save(userGroup);
             Response response = new Response("Success", "Group successfully created", responseMap);
             return response;
 
@@ -52,9 +58,10 @@ public class UserGroupServiceImpl implements UserGroupService {
     public Response getGroupByUser(User user) {
         Map<String, Object> responseMap = new HashMap();
         try {
-            List<UserGroup> groups=userGroupRepository.findByUsers(user);
+            List<UserGroup> grps=userGroupRepository.findByUsers(user);
+            List<UserGroupDTO> groups = convEntitiesToDTOs(grps);
 
-            Response response = new Response("Success", "Successful", convEntitiesToDTOs(groups));
+            Response response = new Response("Success", "Successful", groups);
             return response;
 
         }catch (Exception e){
@@ -85,11 +92,11 @@ public class UserGroupServiceImpl implements UserGroupService {
         UserGroupDTO userGroupDTO = new UserGroupDTO();
         userGroupDTO.setId(userGroup.getId());
         userGroupDTO.setName(userGroup.getName());
-        List<UserDTO> userDTOS = new ArrayList<>();
+        List<UserDTO> users = new ArrayList<>();
         userGroup.getUsers().forEach(user -> {
-           userDTOS.add(convertUserEntityToUserDTO2(user));
+           users.add(convertUserEntityToUserDTO2(user));
         });
-        userGroupDTO.setUserDTOS(userDTOS);
+        userGroupDTO.setUsers(users);
         return userGroupDTO;
 
     }
@@ -107,6 +114,7 @@ public class UserGroupServiceImpl implements UserGroupService {
 
     private UserDTO convertUserEntityToUserDTO2(User user) {
         UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
         userDTO.setEmail(user.email);
         userDTO.setFullName(user.fullName);
         return userDTO;

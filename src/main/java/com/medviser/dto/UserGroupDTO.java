@@ -8,7 +8,7 @@ import java.util.List;
 public class UserGroupDTO {
     private Long id;
     private String name;
-    private List<UserDTO> userDTOS;
+    private List<UserDTO> users;
 
     private List<Long> userIds;
 
@@ -20,12 +20,12 @@ public class UserGroupDTO {
         this.name = name;
     }
 
-    public List<UserDTO> getUserDTOS() {
-        return userDTOS;
+    public List<UserDTO> getUsers() {
+        return users;
     }
 
-    public void setUserDTOS(List<UserDTO> userDTOS) {
-        this.userDTOS = userDTOS;
+    public void setUsers(List<UserDTO> users) {
+        this.users = users;
     }
 
     public Long getId() {
