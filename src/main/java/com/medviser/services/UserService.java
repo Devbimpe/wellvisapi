@@ -272,7 +272,7 @@ public class UserService {
     }
 
 
-    public Object validateUser(User passedUser, Device device){
+    public Response validateUser(User passedUser, Device device){
         Map<String,Object> responseMap = new HashMap();
         try {
             User user = userRepository.findByEmail(passedUser.email);
@@ -302,8 +302,16 @@ public class UserService {
                 final String token = jwtTokenUtil.generateToken(userDetails, device);
                 System.out.println("Token is "+token);
                 //implement sessionid
-                responseMap.put("token",token);
-                Response response = new Response("Success","Login successful",responseMap);
+                LogInResp logInResp = new LogInResp();
+                if(user.healthWorker != null){
+                    logInResp.setRole("healthworker");
+                }
+                else {
+                    logInResp.setRole("user");
+                }
+                logInResp.setToken(token);
+               // responseMap.put("token",token);
+                Response response = new Response("Success","Login successful",logInResp);
                 return response;
             }else{
                 Response response = new Response("Error","Invalid username/password",responseMap);
@@ -338,6 +346,37 @@ public class UserService {
         Response response = new Response("Error","Error occurred internally",responseMap);
         return response;
     }
+
+
+
+    public Object fetchHealthWorkers(){
+        Map<String,Object> responseMap = new HashMap();
+        try {
+                List<User> users = userRepository.findByHealthWorkerNotNull();
+                responseMap.put("userDetails",convertUserEntitiesToDTO(users));
+                Response response = new Response("Success","Users found",responseMap);
+                return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","Error occurred internally",responseMap);
+        return response;
+    }
+
+    public Object getAllUsers(){
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            List<User> users = userRepository.findByHealthWorkerIsNull();
+            responseMap.put("userDetails",convertUserEntitiesToDTO(users));
+            Response response = new Response("Success","Users found",responseMap);
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","Error occurred internally",responseMap);
+        return response;
+    }
+
 
 
     public Object fetchUserProfile(String email, PageableDetailsDTO pageableDetailsDTO){
@@ -402,6 +441,17 @@ public class UserService {
         return response;
     }
 
+
+
+    private List<UserDTO> convertUserEntitiesToDTO(List<User> users){
+        List<UserDTO> userDTOS= new ArrayList<UserDTO>();
+
+        for(User user: users){
+            UserDTO userDTO = convertUserEntityToUserDTO(user);
+            userDTOS.add(userDTO);
+        }
+        return userDTOS;
+    }
 
 
     private UserDTO convertUserEntityToUserDTO(User user) {

@@ -77,9 +77,9 @@ public class QuestionController {
     }
 
     @PostMapping(value = "/{category}/getbycategory")
-    public Object getByCategory(@RequestBody PageableDetailsDTO pageableDetailsDTO, HttpServletRequest request){
+    public Object getByCategory(@RequestBody PageableDetailsDTO pageableDetailsDTO, @PathVariable String category,  HttpServletRequest request){
 
-        return questionService.getTrendingQuestions(pageableDetailsDTO);
+        return questionService.getByCategory(category,pageableDetailsDTO);
     }
 
 

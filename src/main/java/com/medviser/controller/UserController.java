@@ -146,6 +146,34 @@ public class UserController {
     }
 
 
+
+
+    @GetMapping(value = "/gethealthworkers")
+    public Object fetchHealthWorkers(HttpServletRequest request){
+//
+//        String token = request.getHeader(tokenHeader);
+//        JwtUser user = userService.getAuthenticationDetails(token);
+//        if(token==null || user.getUsername()==null){
+//            return userService.tokenNullOrInvalidResponse(token);
+//        }
+
+        return userService.fetchHealthWorkers();
+    }
+
+    @GetMapping(value = "/getallusers")
+    public Object fetchUsers(HttpServletRequest request){
+//
+//        String token = request.getHeader(tokenHeader);
+//        JwtUser user = userService.getAuthenticationDetails(token);
+//        if(token==null || user.getUsername()==null){
+//            return userService.tokenNullOrInvalidResponse(token);
+//        }
+
+        return userService.getAllUsers();
+    }
+
+
+
     @PostMapping(value = "/getuserprofile")
     public Object fetchUserProfile(HttpServletRequest request, @RequestBody PageableDetailsDTO pageableDetailsDTO){
         /*

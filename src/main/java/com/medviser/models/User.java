@@ -48,4 +48,7 @@ public class User extends CommonFields{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Question> questions;
 
+    @ManyToMany
+    private List<UserGroup> userGroups;
+
 }
