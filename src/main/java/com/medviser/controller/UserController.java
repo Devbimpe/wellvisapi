@@ -149,7 +149,7 @@ public class UserController {
 
 
     @GetMapping(value = "/gethealthworkers")
-    public Object fetchHealthWorkers(HttpServletRequest request){
+    public Object fetchHealthWorkers(HttpServletRequest request,PageableDetailsDTO pageableDetailsDTO){
 //
 //        String token = request.getHeader(tokenHeader);
 //        JwtUser user = userService.getAuthenticationDetails(token);
@@ -157,11 +157,11 @@ public class UserController {
 //            return userService.tokenNullOrInvalidResponse(token);
 //        }
 
-        return userService.fetchHealthWorkers();
+        return userService.fetchHealthWorkers(pageableDetailsDTO);
     }
 
     @GetMapping(value = "/getallusers")
-    public Object fetchUsers(HttpServletRequest request){
+    public Object fetchUsers(HttpServletRequest request,PageableDetailsDTO pageableDetailsDTO){
 //
 //        String token = request.getHeader(tokenHeader);
 //        JwtUser user = userService.getAuthenticationDetails(token);
@@ -169,7 +169,7 @@ public class UserController {
 //            return userService.tokenNullOrInvalidResponse(token);
 //        }
 
-        return userService.getAllUsers();
+        return userService.getAllUsers(pageableDetailsDTO);
     }
 
 

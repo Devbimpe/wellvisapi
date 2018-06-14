@@ -105,6 +105,7 @@ public class UserService {
 //                        }
 //                    }
                     healthWorkerRepository.save(passedUser.healthWorker);
+                   // passedUser.role="healthworker";
                 }
 
                 userRepository.save(passedUser);
@@ -306,6 +307,9 @@ public class UserService {
                 if(user.healthWorker != null){
                     logInResp.setRole("healthworker");
                 }
+                else if(user.role.equalsIgnoreCase("admin")){
+                    logInResp.setRole("admin");
+                }
                 else {
                     logInResp.setRole("user");
                 }
@@ -350,10 +354,10 @@ public class UserService {
 
 
 
-    public Object fetchHealthWorkers(){
+    public Object fetchHealthWorkers(PageableDetailsDTO pageableDetailsDTO){
         Map<String,Object> responseMap = new HashMap();
         try {
-                List<User> users = userRepository.findByHealthWorkerNotNull();
+                List<User> users = userRepository.findByHealthWorkerNotNull(new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
                 responseMap.put("userDetails",convertUserEntitiesToDTO(users));
                 Response response = new Response("Success","Users found",responseMap);
                 return response;
@@ -364,10 +368,10 @@ public class UserService {
         return response;
     }
 
-    public Object getAllUsers(){
+    public Object getAllUsers(PageableDetailsDTO pageableDetailsDTO){
         Map<String,Object> responseMap = new HashMap();
         try {
-            List<User> users = userRepository.findByHealthWorkerIsNull();
+            List<User> users = userRepository.findByHealthWorkerIsNull(new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
             responseMap.put("userDetails",convertUserEntitiesToDTO(users));
             Response response = new Response("Success","Users found",responseMap);
             return response;

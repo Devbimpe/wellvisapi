@@ -38,6 +38,10 @@ public class User extends CommonFields{
 
     public String socialFlag = "N";
 
+    public String status = "A";
+
+    public String role;
+
     @JsonIgnore
     public String changePasswordCode;
 
