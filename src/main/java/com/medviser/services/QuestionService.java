@@ -25,6 +25,8 @@ public interface QuestionService {
 
     Object getByCategory(String category, PageableDetailsDTO pageableDetailsDTO);
 
+    Object searchQuestion(String searchString, PageableDetailsDTO pageableDetailsDTO);
+
     Object addLike(CommentLikesDTO commentLikesDTO, User user);
 
     Object addComment(CommentLikesDTO commentLikesDTO, User user);

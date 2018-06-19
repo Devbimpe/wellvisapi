@@ -368,6 +368,22 @@ public class QuestionServiceImpl implements QuestionService {
         return response;
     }
 
+    @Override
+    public Object searchQuestion(String searchString, PageableDetailsDTO pageableDetailsDTO) {
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            Page<Question> questions = questionRepository.findUsingPattern(searchString, new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
+            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(questions.getContent());
+            responseMap.put("Questions",qdto);
+            Response response = new Response("Success","Operation Successful",responseMap);
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","error occurred",responseMap);
+        return response;
+    }
+
     //----------CONVERT ENTITY TO DTOS-----------//
     private CommentsDTO convertEntityToDTO(Comments c){
         CommentsDTO commentsDTO = new CommentsDTO();

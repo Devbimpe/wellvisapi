@@ -1,9 +1,13 @@
 package com.medviser.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by longbridge on 10/18/17.
@@ -47,5 +51,9 @@ public class CommonFields {
 
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
+    }
+    @JsonIgnore
+    public List<String> getDefaultSearchFields() {
+        return new ArrayList<>();
     }
 }

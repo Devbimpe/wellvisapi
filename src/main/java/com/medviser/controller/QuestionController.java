@@ -82,6 +82,11 @@ public class QuestionController {
         return questionService.getByCategory(category,pageableDetailsDTO);
     }
 
+    @PostMapping(value = "/{searchString}/searchquestion")
+    public Object searchQuestion(@RequestBody PageableDetailsDTO pageableDetailsDTO, @PathVariable String searchString,  HttpServletRequest request){
+
+        return questionService.searchQuestion(searchString,pageableDetailsDTO);
+    }
 
 
     @GetMapping(value = "/{id}/getquestion")
