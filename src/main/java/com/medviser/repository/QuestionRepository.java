@@ -12,8 +12,8 @@ import java.util.List;
  * Created by Longbridge on 29/12/2017.
  */
 public interface QuestionRepository extends CommonRepository<Question,Long> {
-    Page<Question> findAllByOrderByCreatedOnDesc(Pageable pageable);
-    Page<Question> findAllByOrderByTrendingCountDesc(Pageable pageable);
-    Page<Question> findByCategory(String category, Pageable pageable);
-    Page<Question> findByUser(User user, Pageable pageable);
+    Page<Question> findAllByDelFlagOrderByCreatedOnDesc(String delFlag,Pageable pageable);
+    Page<Question> findAllByDelFlagOrderByTrendingCountDesc(String delFlag,Pageable pageable);
+    Page<Question> findByCategoryAndDelFlag(String category,String delFlag, Pageable pageable);
+    Page<Question> findByUserAndDelFlag(User user, String delFlag,Pageable pageable);
 }

@@ -46,6 +46,9 @@ public class Question extends CommonFields{
     @OneToMany(mappedBy = "question",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     public List<BookMark> bookMarks;
 
+    public String delFlag="N";
+
+
     public Question() {
     }
 

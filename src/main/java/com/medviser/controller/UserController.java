@@ -1,5 +1,6 @@
 package com.medviser.controller;
 import com.medviser.Util.FacebookProvider;
+import com.medviser.dto.ModeratePostDTO;
 import com.medviser.dto.PageableDetailsDTO;
 import com.medviser.dto.PassWordChangeDTO;
 import com.medviser.dto.UserDTO;
@@ -160,6 +161,7 @@ public class UserController {
         return userService.fetchHealthWorkers(pageableDetailsDTO);
     }
 
+
     @GetMapping(value = "/getallusers")
     public Object fetchUsers(HttpServletRequest request,PageableDetailsDTO pageableDetailsDTO){
 //
@@ -172,7 +174,11 @@ public class UserController {
         return userService.getAllUsers(pageableDetailsDTO);
     }
 
+    @GetMapping(value = "/useraction")
+    public Object userAction(HttpServletRequest request, ModeratePostDTO moderatePostDTO){
 
+        return userService.adminUpdateUser(moderatePostDTO);
+    }
 
     @PostMapping(value = "/getuserprofile")
     public Object fetchUserProfile(HttpServletRequest request, @RequestBody PageableDetailsDTO pageableDetailsDTO){
@@ -190,6 +196,9 @@ public class UserController {
         //======================================================
         return userService.fetchUserProfile(user.getUsername(),pageableDetailsDTO);
     }
+
+
+
 
 
 //

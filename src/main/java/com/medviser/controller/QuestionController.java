@@ -1,6 +1,7 @@
 package com.medviser.controller;
 
 import com.medviser.dto.CommentLikesDTO;
+import com.medviser.dto.ModeratePostDTO;
 import com.medviser.dto.PageableDetailsDTO;
 import com.medviser.dto.QuestionResDTO;
 import com.medviser.models.Question;
@@ -143,6 +144,23 @@ public class QuestionController {
         return questionService.bookMarkQuestion(questionId,user);
     }
 
+
+    @PostMapping(value = "/admin/getall")
+    public Object getAll(@RequestBody PageableDetailsDTO pageableDetailsDTO, HttpServletRequest request){
+
+        return questionService.getAllQuestions(pageableDetailsDTO);
+    }
+
+
+    @PostMapping(value = "/moderatepost")
+    public Object moderateQuestion(@RequestBody ModeratePostDTO moderatePostDTO, HttpServletRequest request){
+        String token = request.getHeader(tokenHeader);
+        User user = userUtil.fetchUserDetails2(token);
+        if(token==null || user==null){
+            return userUtil.tokenNullOrInvalidResponse(token);
+        }
+        return questionService.moderateQuestion(moderatePostDTO);
+    }
 
     @RequestMapping(
             value = "/**",

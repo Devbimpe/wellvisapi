@@ -189,6 +189,28 @@ public class UserService {
     }
 
 
+
+    public Object adminUpdateUser(ModeratePostDTO moderatePostDTO){
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            Date date = new Date();
+            User user = userRepository.findById(moderatePostDTO.userId);
+            user.status=moderatePostDTO.actionType;
+            user.setUpdatedOn(date);
+            userRepository.save(user);
+            Response response = new Response("Success","Update successful",responseMap);
+            return response;
+
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            Response response = new Response("Error","Unable to complete update",responseMap);
+            return response;
+        }
+
+    }
+
+
     public Object changePassword(PassWordChangeDTO passWordChangeDTO){
         Map<String,Object> responseMap = new HashMap();
         try {
@@ -389,7 +411,7 @@ public class UserService {
         try {
             User user = userRepository.findByEmail(email);
             if(user!=null){
-                Page<Question> questions = questionRepository.findByUser(user,new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
+                Page<Question> questions = questionRepository.findByUserAndDelFlag(user,"N",new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
                 UserDTO userDTO = convertUserEntityToUserDTO(user);
                 if(questions != null) {
                     userDTO.setQuestions(convertQuestionEntitiesToDTO(questions.getContent()));

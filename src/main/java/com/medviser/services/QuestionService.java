@@ -1,6 +1,7 @@
 package com.medviser.services;
 
 import com.medviser.dto.CommentLikesDTO;
+import com.medviser.dto.ModeratePostDTO;
 import com.medviser.dto.PageableDetailsDTO;
 import com.medviser.dto.QuestionResDTO;
 import com.medviser.models.Question;
@@ -19,6 +20,8 @@ public interface QuestionService {
 
     Object getQuestions(PageableDetailsDTO pageableDetailsDTO);
 
+    Object getAllQuestions(PageableDetailsDTO pageableDetailsDTO);
+
     Object getLatestQuestions(PageableDetailsDTO pageableDetailsDTO);
 
     Object getTrendingQuestions(PageableDetailsDTO pageableDetailsDTO);
@@ -34,6 +37,8 @@ public interface QuestionService {
     Object flagQuestion(Long questionId, User user);
 
     Object bookMarkQuestion(Long questionId, User user);
+
+    Object moderateQuestion(ModeratePostDTO moderatePostDTO);
 
     Object getBookmarkedFeeds(User user);
 

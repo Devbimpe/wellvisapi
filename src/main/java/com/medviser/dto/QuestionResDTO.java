@@ -9,6 +9,7 @@ public class QuestionResDTO {
     public Long id;
     public String userId;
     public String userFullName;
+    public String role;
     public String title;
     public String description;
     public String category;

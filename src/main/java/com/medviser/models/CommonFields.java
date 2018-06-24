@@ -21,6 +21,8 @@ public class CommonFields {
     private Date verifiedOn;
     private Date createdOn;
 
+
+
     public Long getId() {
         return id;
     }
