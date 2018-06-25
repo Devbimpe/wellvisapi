@@ -533,6 +533,13 @@ public class UserService {
 
         q.userId = question.user.getId().toString();
         q.likesCount =count;
+        Likes l = likeRepository.findByUserAndQuestion(question.user, question);
+        if (l != null) {
+            q.liked="true";
+        } else {
+            q.liked="false";
+        }
+
         Flag flag = flagRepository.findByUserAndQuestion(question.user,question);
         if(flag != null){
             q.flagged=true;

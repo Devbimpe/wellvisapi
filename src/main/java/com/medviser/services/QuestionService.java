@@ -22,13 +22,13 @@ public interface QuestionService {
 
     Object getAllQuestions(PageableDetailsDTO pageableDetailsDTO);
 
-    Object getLatestQuestions(PageableDetailsDTO pageableDetailsDTO);
+    Object getLatestQuestions(PageableDetailsDTO pageableDetailsDTO,User user);
 
-    Object getTrendingQuestions(PageableDetailsDTO pageableDetailsDTO);
+    Object getTrendingQuestions(PageableDetailsDTO pageableDetailsDTO,User user);
 
-    Object getByCategory(String category, PageableDetailsDTO pageableDetailsDTO);
+    Object getByCategory(String category, PageableDetailsDTO pageableDetailsDTO,User user);
 
-    Object searchQuestion(String searchString, PageableDetailsDTO pageableDetailsDTO);
+    Object searchQuestion(String searchString, PageableDetailsDTO pageableDetailsDTO,User user);
 
     Object addLike(CommentLikesDTO commentLikesDTO, User user);
 

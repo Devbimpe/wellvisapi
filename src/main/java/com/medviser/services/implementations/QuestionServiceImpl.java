@@ -264,7 +264,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         try {
 
-                List<QuestionResDTO> q= convertQuestionEntitiesToDTO(bookMarkRepository.findQuestion(user));
+                List<QuestionResDTO> q= convertQuestionEntitiesToDTO(bookMarkRepository.findQuestion(user),user);
 
                 responseMap.put("questions",q);
                 Response response = new Response("Success","Operation Successful",responseMap);
@@ -282,7 +282,7 @@ public class QuestionServiceImpl implements QuestionService {
     public Object getFlaggedFeeds(User user) {
         Map<String,Object> responseMap = new HashMap();
         try {
-            List<QuestionResDTO> q= convertQuestionEntitiesToDTO(flagRepository.findUserQuestions(user));
+            List<QuestionResDTO> q= convertQuestionEntitiesToDTO(flagRepository.findUserQuestions(user),user);
             responseMap.put("questions",q);
             Response response = new Response("Success","Operation Successful",responseMap);
             return response;
@@ -300,16 +300,16 @@ public class QuestionServiceImpl implements QuestionService {
         try {
             Question question = questionRepository.findOne(id);
 
-            QuestionResDTO qdto = convertQuestionEntityToDTO(question);
+            QuestionResDTO qdto = convertQuestionEntityToDTO(question,user);
             System.out.println("user is" + user);
-            if(user != null) {
-                Likes likes = likeRepository.findByUserAndQuestion(user, question);
-                if (likes != null) {
-                    qdto.liked="true";
-                } else {
-                    qdto.liked="false";
-                }
-            }
+//            if(user != null) {
+//                Likes likes = likeRepository.findByUserAndQuestion(user, question);
+//                if (likes != null) {
+//                    qdto.liked="true";
+//                } else {
+//                    qdto.liked="false";
+//                }
+//            }
             responseMap.put("Question",qdto);
             Response response = new Response("Success","Operation Successful",responseMap);
             return response;
@@ -328,7 +328,7 @@ public class QuestionServiceImpl implements QuestionService {
 
             //List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(questions);
             Page<Question> questions = questionRepository.findAll(new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
-            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(questions.getContent());
+            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(questions.getContent(),null);
             responseMap.put("Questions",qdto);
             Response response = new Response("Success","Operation Successful",responseMap);
             return response;
@@ -344,7 +344,8 @@ public class QuestionServiceImpl implements QuestionService {
         Map<String,Object> responseMap = new HashMap();
         try {
             Page<Question> questions = questionRepository.findAll(new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
-            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(questions.getContent());
+
+            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(questions.getContent(),null);
             responseMap.put("Questions",qdto);
             Response response = new Response("Success","Operation Successful",responseMap);
             return response;
@@ -356,11 +357,11 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Object getLatestQuestions(PageableDetailsDTO pageableDetailsDTO) {
+    public Object getLatestQuestions(PageableDetailsDTO pageableDetailsDTO,User user) {
         Map<String,Object> responseMap = new HashMap();
         try {
             Page<Question> latestQuestions = questionRepository.findAllByDelFlagOrderByCreatedOnDesc("N",new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
-            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(latestQuestions.getContent());
+            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(latestQuestions.getContent(),user);
             responseMap.put("Questions",qdto);
             Response response = new Response("Success","Operation Successful",responseMap);
             return response;
@@ -372,11 +373,11 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Object getTrendingQuestions(PageableDetailsDTO pageableDetailsDTO) {
+    public Object getTrendingQuestions(PageableDetailsDTO pageableDetailsDTO,User user) {
         Map<String,Object> responseMap = new HashMap();
         try {
             Page<Question> trendingQuestions = questionRepository.findAllByDelFlagOrderByTrendingCountDesc("N",new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
-            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(trendingQuestions.getContent());
+            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(trendingQuestions.getContent(),user);
             responseMap.put("Questions",qdto);
             Response response = new Response("Success","Operation Successful",responseMap);
             return response;
@@ -388,11 +389,11 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Object getByCategory(String category, PageableDetailsDTO pageableDetailsDTO) {
+    public Object getByCategory(String category, PageableDetailsDTO pageableDetailsDTO,User user) {
         Map<String,Object> responseMap = new HashMap();
         try {
             Page<Question> questions = questionRepository.findByCategoryAndDelFlag(category, "N",new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
-            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(questions.getContent());
+            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(questions.getContent(),user);
             responseMap.put("Questions",qdto);
             Response response = new Response("Success","Operation Successful",responseMap);
             return response;
@@ -404,11 +405,11 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Object searchQuestion(String searchString, PageableDetailsDTO pageableDetailsDTO) {
+    public Object searchQuestion(String searchString, PageableDetailsDTO pageableDetailsDTO,User user) {
         Map<String,Object> responseMap = new HashMap();
         try {
             Page<Question> questions = questionRepository.findUsingPattern(searchString, new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
-            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(questions.getContent());
+            List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(questions.getContent(),user);
             responseMap.put("Questions",qdto);
             Response response = new Response("Success","Operation Successful",responseMap);
             return response;
@@ -476,17 +477,17 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
 
-    private List<QuestionResDTO> convertQuestionEntitiesToDTO(List<Question> questions){
+    private List<QuestionResDTO> convertQuestionEntitiesToDTO(List<Question> questions,User user){
         List<QuestionResDTO> questionResDTOS= new ArrayList<QuestionResDTO>();
 
         for(Question question: questions){
-            QuestionResDTO questionResDTO = convertQuestionEntityToDTO(question);
+            QuestionResDTO questionResDTO = convertQuestionEntityToDTO(question,user);
             questionResDTOS.add(questionResDTO);
         }
         return questionResDTOS;
     }
 
-    private QuestionResDTO convertQuestionEntityToDTO(Question question){
+    private QuestionResDTO convertQuestionEntityToDTO(Question question,User user){
         QuestionResDTO q = new QuestionResDTO();
         List<CommentsDTO> cmts = convEntsToDTOs(question.comments);
         List<LikesDTO> likes = convertEntsToDTOs(question.likes);
@@ -501,6 +502,31 @@ public class QuestionServiceImpl implements QuestionService {
         else {
             q.userFullName = question.user.fullName;
             q.anonymous="false";
+        }
+
+        if(user != null) {
+            Likes l = likeRepository.findByUserAndQuestion(user, question);
+            if (l != null) {
+                q.liked="true";
+            } else {
+                q.liked="false";
+            }
+
+            Flag flag = flagRepository.findByUserAndQuestion(question.user,question);
+            if(flag != null){
+                q.flagged=true;
+            }
+            else {
+                q.flagged=false;
+            }
+
+            BookMark bookMark = bookMarkRepository.findByUserAndQuestion(question.user,question);
+            if(bookMark != null){
+                q.bookmarked=true;
+            }
+            else {
+                q.bookmarked=false;
+            }
         }
         q.role=question.user.role;
         //q.anonymous = question.anonymous;

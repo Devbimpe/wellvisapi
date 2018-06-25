@@ -20,6 +20,7 @@ public class QuestionResDTO {
     public Long likesCount;
     public String date;
     public String liked;
+
     public int stars;
 
     public boolean bookmarked;

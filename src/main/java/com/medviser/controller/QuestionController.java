@@ -67,26 +67,30 @@ public class QuestionController {
 
     @PostMapping(value = "/getlatest")
     public Object getLatest(@RequestBody PageableDetailsDTO pageableDetailsDTO, HttpServletRequest request){
-
-        return questionService.getLatestQuestions(pageableDetailsDTO);
+        String token = request.getHeader(tokenHeader);
+        User userTemp = userUtil.fetchUserDetails2(token);
+        return questionService.getLatestQuestions(pageableDetailsDTO,userTemp);
     }
 
     @PostMapping(value = "/gettrending")
     public Object getTrending(@RequestBody PageableDetailsDTO pageableDetailsDTO, HttpServletRequest request){
-
-        return questionService.getTrendingQuestions(pageableDetailsDTO);
+        String token = request.getHeader(tokenHeader);
+        User userTemp = userUtil.fetchUserDetails2(token);
+        return questionService.getTrendingQuestions(pageableDetailsDTO,userTemp);
     }
 
     @PostMapping(value = "/{category}/getbycategory")
     public Object getByCategory(@RequestBody PageableDetailsDTO pageableDetailsDTO, @PathVariable String category,  HttpServletRequest request){
-
-        return questionService.getByCategory(category,pageableDetailsDTO);
+        String token = request.getHeader(tokenHeader);
+        User userTemp = userUtil.fetchUserDetails2(token);
+        return questionService.getByCategory(category,pageableDetailsDTO,userTemp);
     }
 
     @PostMapping(value = "/{searchString}/searchquestion")
     public Object searchQuestion(@RequestBody PageableDetailsDTO pageableDetailsDTO, @PathVariable String searchString,  HttpServletRequest request){
-
-        return questionService.searchQuestion(searchString,pageableDetailsDTO);
+        String token = request.getHeader(tokenHeader);
+        User userTemp = userUtil.fetchUserDetails2(token);
+        return questionService.searchQuestion(searchString,pageableDetailsDTO,userTemp);
     }
 
 
