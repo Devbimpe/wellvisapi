@@ -512,7 +512,7 @@ public class QuestionServiceImpl implements QuestionService {
                 q.liked="false";
             }
 
-            Flag flag = flagRepository.findByUserAndQuestion(question.user,question);
+            Flag flag = flagRepository.findByUserAndQuestion(user,question);
             if(flag != null){
                 q.flagged=true;
             }
@@ -520,7 +520,7 @@ public class QuestionServiceImpl implements QuestionService {
                 q.flagged=false;
             }
 
-            BookMark bookMark = bookMarkRepository.findByUserAndQuestion(question.user,question);
+            BookMark bookMark = bookMarkRepository.findByUserAndQuestion(user,question);
             if(bookMark != null){
                 q.bookmarked=true;
             }
