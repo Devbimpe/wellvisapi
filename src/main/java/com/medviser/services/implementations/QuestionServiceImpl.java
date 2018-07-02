@@ -100,7 +100,7 @@ public class QuestionServiceImpl implements QuestionService {
 
             Question q = questionRepository.findOne(commentLikesDTO.getQuestionId());
             if(user != null && q !=null){
-                Likes likes = likeRepository.findByUser(user);
+                Likes likes = likeRepository.findByUserAndQuestion(user,q);
                 if(likes != null){
                     likeRepository.delete(likes);
                     Long count = likeRepository.countByQuestion(q);
@@ -182,7 +182,7 @@ public class QuestionServiceImpl implements QuestionService {
             Date date = new Date();
             Question q = questionRepository.findOne(questionId);
             if(user != null && q != null){
-                Flag flag = flagRepository.findByUser(user);
+                Flag flag = flagRepository.findByUserAndQuestion(user,q);
                 if(flag != null){
                     flagRepository.delete(flag);
                 }
@@ -214,7 +214,7 @@ public class QuestionServiceImpl implements QuestionService {
             Date date = new Date();
             Question q = questionRepository.findOne(questionId);
             if(user != null && q != null){
-                BookMark bookMark = bookMarkRepository.findByUser(user);
+                BookMark bookMark = bookMarkRepository.findByUserAndQuestion(user,q);
                 if(bookMark != null){
                     bookMarkRepository.delete(bookMark);
                 }
