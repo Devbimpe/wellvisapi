@@ -473,6 +473,9 @@ public class QuestionServiceImpl implements QuestionService {
         userDTO.setEmail(user.email);
         userDTO.setId(user.getId());
         userDTO.setFullName(user.fullName);
+        if(user.healthWorker != null) {
+            userDTO.role = user.healthWorker.areaOfExpertise;
+        }
         return userDTO;
     }
 
@@ -528,7 +531,9 @@ public class QuestionServiceImpl implements QuestionService {
                 q.bookmarked=false;
             }
         }
-        q.role=question.user.role;
+        if(question.user.healthWorker != null) {
+            q.role = question.user.healthWorker.areaOfExpertise;
+        }
         //q.anonymous = question.anonymous;
         q.category = question.category;
         q.description = question.description;

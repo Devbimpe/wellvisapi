@@ -18,6 +18,7 @@ public class UserDTO {
     private String phoneNumber;
     private List<QuestionResDTO> questions;
 
+    public String role;
     public HealthWorker healthWorker;
 
 
