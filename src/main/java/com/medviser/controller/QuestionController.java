@@ -107,6 +107,20 @@ public class QuestionController {
         return questionService.getQuestion(id,userTemp);
     }
 
+
+    @GetMapping(value = "/{id}/deletequestion")
+    public Object deleteQuestion(@PathVariable Long id, HttpServletRequest request){
+        String token = request.getHeader(tokenHeader);
+        //System.out.println("token is" + token);
+        User userTemp = null;
+        if(token != null){
+            userTemp = userUtil.fetchUserDetails2(token);
+        }
+
+        System.out.println("user is" + userTemp);
+        return questionService.getQuestion(id,userTemp);
+    }
+
     @GetMapping(value = "/getbookmarkedfeeds")
     public Object getBookmarkedFeeds(HttpServletRequest request){
         String token = request.getHeader(tokenHeader);

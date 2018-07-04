@@ -320,6 +320,22 @@ public class QuestionServiceImpl implements QuestionService {
         return response;
     }
 
+
+    @Override
+    public Object deleteQuestion(Long id, User user) {
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            Question question = questionRepository.findOne(id);
+           questionRepository.delete(question);
+            Response response = new Response("Success","Operation Successful",responseMap);
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","error occurred",responseMap);
+        return response;
+    }
+
     @Override
     public Object getQuestions(PageableDetailsDTO pageableDetailsDTO) {
         Map<String,Object> responseMap = new HashMap();

@@ -18,6 +18,8 @@ public interface QuestionService {
 
     Object getQuestion(Long id, User user);
 
+    Object deleteQuestion(Long id, User user);
+
     Object getQuestions(PageableDetailsDTO pageableDetailsDTO);
 
     Object getAllQuestions(PageableDetailsDTO pageableDetailsDTO);
