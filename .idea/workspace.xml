@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94941a43-43c7-4af8-aaf9-abeb897b5b09" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/controller/QuestionController.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/controller/QuestionController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/services/QuestionService.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/services/QuestionService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/services/implementations/QuestionServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/services/implementations/QuestionServiceImpl.java" />
-    </list>
+    <list default="true" id="94941a43-43c7-4af8-aaf9-abeb897b5b09" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -80,7 +76,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/controller/QuestionController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
-              <caret line="120" column="34" lean-forward="true" selection-start-line="120" selection-start-column="34" selection-end-line="120" selection-end-column="34" />
+              <caret line="120" column="34" lean-forward="false" selection-start-line="120" selection-start-column="34" selection-end-line="120" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1168,12 +1164,12 @@
       <workItem from="1529138441912" duration="995000" />
       <workItem from="1529325226447" duration="8936000" />
       <workItem from="1529959804144" duration="1668000" />
-      <workItem from="1529962299178" duration="12650000" />
+      <workItem from="1529962299178" duration="13267000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128978000" />
+    <option name="totallyTimeSpent" value="129595000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1362" height="682" extended-state="0" />
@@ -1658,7 +1654,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/controller/QuestionController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
-          <caret line="120" column="34" lean-forward="true" selection-start-line="120" selection-start-column="34" selection-end-line="120" selection-end-column="34" />
+          <caret line="120" column="34" lean-forward="false" selection-start-line="120" selection-start-column="34" selection-end-line="120" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
