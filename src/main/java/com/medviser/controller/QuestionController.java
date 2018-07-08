@@ -118,7 +118,7 @@ public class QuestionController {
         }
 
         System.out.println("user is" + userTemp);
-        return questionService.getQuestion(id,userTemp);
+        return questionService.deleteQuestion(id,userTemp);
     }
 
     @GetMapping(value = "/getbookmarkedfeeds")
