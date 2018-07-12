@@ -105,7 +105,10 @@ public class UserService {
 //                        }
 //                    }
                     healthWorkerRepository.save(passedUser.healthWorker);
-                   // passedUser.role="healthworker";
+                   passedUser.role="healthworker";
+                }
+                else {
+                    passedUser.role="user";
                 }
 
                 userRepository.save(passedUser);
@@ -190,6 +193,26 @@ public class UserService {
 
 
 
+
+    public Object getUserById(Long id){
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            User user = userRepository.findById(id);
+
+            Response response = new Response("Success","Update successful",convertUserEntityToUserDTO(user));
+            return response;
+
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            Response response = new Response("Error","Unable to complete update",responseMap);
+            return response;
+        }
+
+    }
+
+
+
     public Object adminUpdateUser(ModeratePostDTO moderatePostDTO){
         Map<String,Object> responseMap = new HashMap();
         try {
@@ -230,6 +253,32 @@ public class UserService {
             }
             userTemp.setUpdatedOn(date);
             userRepository.save(userTemp);
+            Response response = new Response("Success","Update successful",responseMap);
+            return response;
+
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            Response response = new Response("Error","Unable to complete update",responseMap);
+            return response;
+        }
+
+    }
+
+
+    public Object resetPassword(PassWordChangeDTO passWordChangeDTO,User user){
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            Date date = new Date();
+
+            if(passWordChangeDTO.getNewPassword() != null) {
+                user.password=passWordChangeDTO.getNewPassword();
+            }else {
+                Response response = new Response("Error","New password cannot be empty",responseMap);
+                return response;
+            }
+            user.setUpdatedOn(date);
+            userRepository.save(user);
             Response response = new Response("Success","Update successful",responseMap);
             return response;
 

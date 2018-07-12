@@ -5,12 +5,14 @@ import com.medviser.dto.PageableDetailsDTO;
 import com.medviser.dto.PassWordChangeDTO;
 import com.medviser.dto.UserDTO;
 import com.medviser.exception.AppException;
+import com.medviser.models.Follower;
 import com.medviser.models.MailError;
 import com.medviser.models.Response;
 import com.medviser.models.User;
 import com.medviser.repository.MailErrorRepository;
 import com.medviser.security.JwtUser;
 import com.medviser.security.repository.UserRepository;
+import com.medviser.services.FollowerService;
 import com.medviser.services.TokenService;
 import com.medviser.services.UserService;
 import org.apache.log4j.Logger;
@@ -46,6 +48,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    FollowerService followerService;
 
     @Autowired
     TokenService tokenService;
@@ -96,6 +101,19 @@ public class UserController {
     public Object changePassword(@RequestBody PassWordChangeDTO passWordChangeDTO){
 
         return userService.changePassword(passWordChangeDTO);
+    }
+
+
+
+    @PostMapping(value = "/resetpassword")
+    public Object resetPassword(@RequestBody PassWordChangeDTO passWordChangeDTO,HttpServletRequest request){
+
+        String token = request.getHeader(tokenHeader);
+        User userTemp = userService.fetchUserDetails2(token);
+        if(token==null || userTemp==null){
+            return userService.tokenNullOrInvalidResponse(token);
+        }
+        return userService.resetPassword(passWordChangeDTO,userTemp);
     }
 
 
@@ -198,6 +216,30 @@ public class UserController {
     }
 
 
+
+
+    @PostMapping(value = "/followhealthworker")
+    public Object followHealthWorker(@RequestBody Follower follower, HttpServletRequest request){
+
+        String token = request.getHeader(tokenHeader);
+        User userTemp = userService.fetchUserDetails2(token);
+        if(token==null || userTemp==null){
+            return userService.tokenNullOrInvalidResponse(token);
+        }
+        return followerService.followHealthWorker(follower,userTemp);
+    }
+
+
+    @GetMapping(value = "/{id}/getuserbyid")
+    public Object getUserById(HttpServletRequest request, @PathVariable Long id){
+
+        String token = request.getHeader(tokenHeader);
+        User userTemp = userService.fetchUserDetails2(token);
+        if(token==null || userTemp==null){
+            return userService.tokenNullOrInvalidResponse(token);
+        }
+        return userService.getUserById(id);
+    }
 
 
 
