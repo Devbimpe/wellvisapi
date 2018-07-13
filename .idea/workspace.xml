@@ -2,16 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94941a43-43c7-4af8-aaf9-abeb897b5b09" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/models/Follower.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/repository/FollowerRepository.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/services/FollowerService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/services/implementations/FollowerServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/medviser/controller/QuestionController.class" afterPath="$PROJECT_DIR$/target/classes/com/medviser/controller/QuestionController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/medviser/controller/UserController.class" afterPath="$PROJECT_DIR$/target/classes/com/medviser/controller/UserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/medviser/dto/UserDTO.class" afterPath="$PROJECT_DIR$/target/classes/com/medviser/dto/UserDTO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/medviser/services/QuestionService.class" afterPath="$PROJECT_DIR$/target/classes/com/medviser/services/QuestionService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/medviser/services/UserService.class" afterPath="$PROJECT_DIR$/target/classes/com/medviser/services/UserService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/medviser/services/implementations/QuestionServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/com/medviser/services/implementations/QuestionServiceImpl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/controller/UserController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/medviser/services/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/medviser/services/UserService.java" />
@@ -75,15 +65,9 @@
       <file leaf-file-name="UserService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/services/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="201" column="94" lean-forward="false" selection-start-line="201" selection-start-column="94" selection-end-line="201" selection-end-column="94" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#19993#20002#0" expanded="false" />
-                <element signature="e#22776#22792#0" expanded="false" />
-                <element signature="e#23668#23681#0" expanded="false" />
-                <element signature="e#24209#24219#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="205">
+              <caret line="206" column="24" lean-forward="false" selection-start-line="206" selection-start-column="24" selection-end-line="206" selection-end-column="24" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -91,27 +75,19 @@
       <file leaf-file-name="QuestionController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/controller/QuestionController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
+            <state relative-caret-position="1300">
               <caret line="106" column="38" lean-forward="false" selection-start-line="106" selection-start-column="38" selection-end-line="106" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#7294#7295#0" expanded="false" />
-                <element signature="e#7350#7351#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="228" column="39" lean-forward="false" selection-start-line="228" selection-start-column="39" selection-end-line="228" selection-end-column="39" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#9124#9125#0" expanded="false" />
-                <element signature="e#9180#9181#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="163">
+              <caret line="241" column="36" lean-forward="true" selection-start-line="241" selection-start-column="36" selection-end-line="241" selection-end-column="36" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -126,11 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FollowerServiceImpl.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FollowerServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/services/implementations/FollowerServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="31" column="28" lean-forward="true" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+            <state relative-caret-position="223">
+              <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -218,8 +194,8 @@
       <find>getq</find>
       <find>getques</find>
       <find>delete</find>
-      <find>role</find>
       <find>follow</find>
+      <find>role</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -280,10 +256,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/medviser/models/Follow.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/medviser/repository/FollowerRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/medviser/services/FollowerService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/medviser/services/UserService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/medviser/controller/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/medviser/models/Follower.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/medviser/services/implementations/FollowerServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/medviser/services/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/medviser/controller/UserController.java" />
       </list>
     </option>
   </component>
@@ -1127,12 +1103,12 @@
       <workItem from="1529962299178" duration="14464000" />
       <workItem from="1531085504513" duration="749000" />
       <workItem from="1531087673008" duration="405000" />
-      <workItem from="1531241920034" duration="6306000" />
+      <workItem from="1531241920034" duration="8458000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138252000" />
+    <option name="totallyTimeSpent" value="140404000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1362" height="682" extended-state="0" />
@@ -1158,7 +1134,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43559322" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27878788" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1561,32 +1537,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/services/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="201" column="94" lean-forward="false" selection-start-line="201" selection-start-column="94" selection-end-line="201" selection-end-column="94" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#19993#20002#0" expanded="false" />
-            <element signature="e#22776#22792#0" expanded="false" />
-            <element signature="e#23668#23681#0" expanded="false" />
-            <element signature="e#24209#24219#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/controller/QuestionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="106" column="38" lean-forward="false" selection-start-line="106" selection-start-column="38" selection-end-line="106" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#7294#7295#0" expanded="false" />
-            <element signature="e#7350#7351#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/services/QuestionService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -1618,18 +1568,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="228" column="39" lean-forward="false" selection-start-line="228" selection-start-column="39" selection-end-line="228" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#9124#9125#0" expanded="false" />
-            <element signature="e#9180#9181#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/services/FollowerService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -1640,11 +1578,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/services/implementations/FollowerServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="31" column="28" lean-forward="true" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+        <state relative-caret-position="223">
+          <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/controller/QuestionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1300">
+          <caret line="106" column="38" lean-forward="false" selection-start-line="106" selection-start-column="38" selection-end-line="106" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/services/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="206" column="24" lean-forward="false" selection-start-line="206" selection-start-column="24" selection-end-line="206" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/medviser/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="241" column="36" lean-forward="true" selection-start-line="241" selection-start-column="36" selection-end-line="241" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>

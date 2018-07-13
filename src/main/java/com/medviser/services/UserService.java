@@ -194,19 +194,17 @@ public class UserService {
 
 
 
-    public Object getUserById(Long id){
+    public User getUserById(Long id){
         Map<String,Object> responseMap = new HashMap();
         try {
             User user = userRepository.findById(id);
 
-            Response response = new Response("Success","Update successful",convertUserEntityToUserDTO(user));
-            return response;
+           return user;
 
         }
         catch (Exception ex){
             ex.printStackTrace();
-            Response response = new Response("Error","Unable to complete update",responseMap);
-            return response;
+            return null;
         }
 
     }
