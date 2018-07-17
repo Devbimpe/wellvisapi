@@ -61,6 +61,9 @@ public class UserService {
     @Autowired
     BookMarkRepository bookMarkRepository;
 
+    @Autowired
+    FollowerRepository followerRepository;
+
 
     @Autowired
     HealthWorkerRepository healthWorkerRepository;
@@ -239,7 +242,8 @@ public class UserService {
             User userTemp = userRepository.findByEmail(passWordChangeDTO.getEmail());
             if(passWordChangeDTO.getNewPassword() != null) {
                 if (passWordChangeDTO.getCode().equalsIgnoreCase(userTemp.changePasswordCode)) {
-                    userTemp.password = passWordChangeDTO.getNewPassword();
+
+                    userTemp.password =  Hash.createPassword(passWordChangeDTO.getNewPassword());
                 }
                 else {
                     Response response = new Response("Error","Code does not match the one sent to email",responseMap);
@@ -270,7 +274,9 @@ public class UserService {
             Date date = new Date();
 
             if(passWordChangeDTO.getNewPassword() != null) {
-                user.password=passWordChangeDTO.getNewPassword();
+
+
+                user.password=Hash.createPassword(passWordChangeDTO.getNewPassword());
             }else {
                 Response response = new Response("Error","New password cannot be empty",responseMap);
                 return response;
@@ -463,6 +469,8 @@ public class UserService {
                 if(questions != null) {
                     userDTO.setQuestions(convertQuestionEntitiesToDTO(questions.getContent()));
                 }
+               // Follower follower=followerRepository.findByFollowerIdAndHealthWorkerId(userId,user.healthWorker.getId());
+
 
                 responseMap.put("userDetails",userDTO);
                 Response response = new Response("Success","User found",responseMap);
@@ -477,6 +485,44 @@ public class UserService {
         Response response = new Response("Error","Error occurred internally",responseMap);
         return response;
     }
+
+
+
+    public Object fetchUserHProfile(Long hwId, PageableDetailsDTO pageableDetailsDTO,Long userId){
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            User user = userRepository.findById(hwId);
+            if(user!=null){
+                Page<Question> questions = questionRepository.findByUserAndDelFlag(user,"N",new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
+                UserDTO userDTO = convertUserEntityToUserDTO(user);
+                if(questions != null) {
+                    userDTO.setQuestions(convertQuestionEntitiesToDTO(questions.getContent()));
+                }
+
+                if(userId != null) {
+                    Follower follower = followerRepository.findByFollowerIdAndHealthWorkerId(userId, hwId);
+                    if (follower != null) {
+                        userDTO.following = true;
+                    }
+                }else {
+                    userDTO.following = false;
+                }
+
+                responseMap.put("userDetails",userDTO);
+                Response response = new Response("Success","User found",responseMap);
+                return response;
+            }else{
+                Response response = new Response("Error","User not found",responseMap);
+                return response;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","Error occurred internally",responseMap);
+        return response;
+    }
+
+
 
 
     public User fetchUserDetails2(String token){

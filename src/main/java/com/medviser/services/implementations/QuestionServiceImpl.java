@@ -39,6 +39,12 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     BookMarkRepository bookMarkRepository;
 
+    @Autowired
+    LikeCommentRepository likeCommentRepository;
+
+    @Autowired
+    FlagCommentRepository flagCommentRepository;
+
     @Value("${s.wellvisimages.folder}")
     private String wellvisImagesFolder;
 
@@ -238,6 +244,75 @@ public class QuestionServiceImpl implements QuestionService {
         return response;
     }
 
+    @Override
+    public Object likeComment(Long commentId, User user) {
+        Map<String,Object> responseMap = new HashMap();
+
+        try {
+            Date date = new Date();
+            Comments comment = commentRepository.findOne(commentId);
+            if(user != null && comment != null){
+                LikeComment likeComment = likeCommentRepository.findByUserAndComments(user,comment);
+
+                if(likeComment != null){
+                    likeCommentRepository.delete(likeComment);
+                }
+                else {
+                    likeComment = new LikeComment();
+                    likeComment.comments = comment;
+                    likeComment.user = user;
+                    likeComment.setCreatedOn(date);
+                    likeComment.setUpdatedOn(date);
+                    likeCommentRepository.save(likeComment);
+                }
+                responseMap.put("success","success");
+                Response response = new Response("Success","Operation Successful",responseMap);
+                return response;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","error occurred",responseMap);
+        return response;
+    }
+
+
+
+
+    @Override
+    public Object flagComment(Long commentId, User user) {
+        Map<String,Object> responseMap = new HashMap();
+
+        try {
+            Date date = new Date();
+            Comments comment = commentRepository.findOne(commentId);
+            if(user != null && comment != null){
+                FlagComment flagComment = flagCommentRepository.findByUserAndComments(user,comment);
+
+                if(flagComment != null){
+                    flagCommentRepository.delete(flagComment);
+                }
+                else {
+                    flagComment = new FlagComment();
+                    flagComment.comments = comment;
+                    flagComment.user = user;
+                    flagComment.setCreatedOn(date);
+                    flagComment.setUpdatedOn(date);
+                    flagCommentRepository.save(flagComment);
+                }
+                responseMap.put("success","success");
+                Response response = new Response("Success","Operation Successful",responseMap);
+                return response;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","error occurred",responseMap);
+        return response;
+
+    }
 
     @Override
     public Object moderateQuestion(ModeratePostDTO moderatePostDTO) {
@@ -301,15 +376,6 @@ public class QuestionServiceImpl implements QuestionService {
             Question question = questionRepository.findOne(id);
 
             QuestionResDTO qdto = convertQuestionEntityToDTO(question,user);
-            System.out.println("user is" + user);
-//            if(user != null) {
-//                Likes likes = likeRepository.findByUserAndQuestion(user, question);
-//                if (likes != null) {
-//                    qdto.liked="true";
-//                } else {
-//                    qdto.liked="false";
-//                }
-//            }
             responseMap.put("Question",qdto);
             Response response = new Response("Success","Operation Successful",responseMap);
             return response;
@@ -446,17 +512,37 @@ public class QuestionServiceImpl implements QuestionService {
 
         String stringDate = formatter.format(c.getCreatedOn());
         commentsDTO.setCreatedDate(stringDate);
+
+
         commentsDTO.setUser(convertUserEntityToUserDTO(c.user));
 
         return commentsDTO;
 
     }
 
-    private List<CommentsDTO> convEntsToDTOs(List<Comments> c){
+    private List<CommentsDTO> convEntsToDTOs(List<Comments> c,User user){
         List<CommentsDTO> commentsDTOS = new ArrayList<CommentsDTO>();
 
         for(Comments comments: c){
             CommentsDTO commentsDTO = convertEntityToDTO(comments);
+            List<LikeComment> likeComments=likeCommentRepository.findByComments(comments);
+            List<CommentActionDTO> likes = convertLikeCommentEntitiesToDTO(likeComments);
+            commentsDTO.likes=likes;
+
+            if(user != null) {
+                LikeComment l = likeCommentRepository.findByUserAndComments(user, comments);
+                if (l != null) {
+                    commentsDTO.setLiked("true");
+                } else {
+                    commentsDTO.setLiked("false");
+                }
+                FlagComment f = flagCommentRepository.findByUserAndComments(user, comments);
+                if (f != null) {
+                    commentsDTO.setFlagged("true");
+                } else {
+                    commentsDTO.setFlagged("false");
+                }
+            }
             commentsDTOS.add(commentsDTO);
         }
         return commentsDTOS;
@@ -468,6 +554,29 @@ public class QuestionServiceImpl implements QuestionService {
         likesDTO.setId(l.getId());
         likesDTO.setUser(convertUserEntityToUserDTO(l.user));
         return likesDTO;
+
+    }
+
+
+    private List<CommentActionDTO> convertLikeCommentEntitiesToDTO(List<LikeComment> l){
+        List<CommentActionDTO> commentActionDTOS = new ArrayList<CommentActionDTO>();
+
+        for(LikeComment likeComment: l){
+            CommentActionDTO commentActionDTO = convertLikeCommentEntityToDTO(likeComment);
+            commentActionDTOS.add(commentActionDTO);
+        }
+        return commentActionDTOS;
+
+    }
+
+
+
+    private CommentActionDTO convertLikeCommentEntityToDTO(LikeComment likeComment){
+        CommentActionDTO commentActionDTO = new CommentActionDTO();
+
+        commentActionDTO.setId(likeComment.getId());
+        commentActionDTO.setUser(convertUserEntityToUserDTO(likeComment.user));
+        return commentActionDTO;
 
     }
 
@@ -508,8 +617,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     private QuestionResDTO convertQuestionEntityToDTO(Question question,User user){
         QuestionResDTO q = new QuestionResDTO();
-        List<CommentsDTO> cmts = convEntsToDTOs(question.comments);
+        List<CommentsDTO> cmts = convEntsToDTOs(question.comments,user);
         List<LikesDTO> likes = convertEntsToDTOs(question.likes);
+
         q.id=question.getId();
         q.comments = cmts;
         q.likes=likes;

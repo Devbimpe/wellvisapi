@@ -38,6 +38,11 @@ public interface QuestionService {
 
     Object flagQuestion(Long questionId, User user);
 
+
+    Object likeComment(Long commentId,User user);
+
+    Object flagComment(Long commentId,User user);
+
     Object bookMarkQuestion(Long questionId, User user);
 
     Object moderateQuestion(ModeratePostDTO moderatePostDTO);

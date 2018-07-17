@@ -26,8 +26,11 @@ public class FollowerServiceImpl implements FollowerService {
     public Object followHealthWorker(Follower follower, User user) {
         Map<String,Object> responseMap = new HashMap();
         try {
-            follower.setFollowerId(user.getId());
-           followerRepository.save(follower);
+            if(followerRepository.findByFollowerIdAndHealthWorkerId(user.getId(),follower.getHealthWorkerId()) == null){
+                follower.setFollowerId(user.getId());
+                follower.setHealthWorkerId(follower.getHealthWorkerId());
+                followerRepository.save(follower);
+            }
             Response response = new Response("Success","Operation Successful",responseMap);
             return response;
         } catch (Exception e) {

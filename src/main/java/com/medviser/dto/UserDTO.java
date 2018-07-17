@@ -21,6 +21,8 @@ public class UserDTO {
     public String role;
     public HealthWorker healthWorker;
 
+    public Boolean following;
+
 
     public Long getId() {
         return id;

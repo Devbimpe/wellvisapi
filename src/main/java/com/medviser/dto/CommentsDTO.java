@@ -1,5 +1,7 @@
 package com.medviser.dto;
 
+import java.util.List;
+
 /**
  * Created by Longbridge on 10/11/2017.
  */
@@ -13,6 +15,12 @@ public class CommentsDTO {
     private String comment;
 
     private String createdDate;
+
+    public List<CommentActionDTO> likes;
+
+    private String liked;
+
+    private String flagged;
 
     public Long getId() {
         return id;
@@ -44,5 +52,21 @@ public class CommentsDTO {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getLiked() {
+        return liked;
+    }
+
+    public void setLiked(String liked) {
+        this.liked = liked;
+    }
+
+    public String getFlagged() {
+        return flagged;
+    }
+
+    public void setFlagged(String flagged) {
+        this.flagged = flagged;
     }
 }

@@ -230,16 +230,16 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "/{id}/getuserbyid")
-    public Object getUserById(HttpServletRequest request, @PathVariable Long id,@RequestBody PageableDetailsDTO pageableDetailsDTO){
+    @PostMapping(value = "/{hwId}/getuserbyid")
+    public Object getUserById(HttpServletRequest request, @PathVariable Long hwId,@RequestBody PageableDetailsDTO pageableDetailsDTO){
 
         String token = request.getHeader(tokenHeader);
         User userTemp = userService.fetchUserDetails2(token);
         if(token==null || userTemp==null){
             return userService.tokenNullOrInvalidResponse(token);
         }
-        User u=userService.getUserById(id);
-        return userService.fetchUserProfile(u.email,pageableDetailsDTO);
+       // User u=userService.getUserById(id);
+        return userService.fetchUserHProfile(hwId,pageableDetailsDTO,userTemp.getId());
     }
 
 

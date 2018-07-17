@@ -152,6 +152,30 @@ public class QuestionController {
         return questionService.flagQuestion(questionId,user);
     }
 
+
+
+    @PostMapping(value = "/flagcomment/{commentId}")
+    public Object flagComment(@PathVariable Long commentId, HttpServletRequest request){
+        String token = request.getHeader(tokenHeader);
+        User user = userUtil.fetchUserDetails2(token);
+        if(token==null || user==null){
+            return userUtil.tokenNullOrInvalidResponse(token);
+        }
+        return questionService.flagComment(commentId,user);
+    }
+
+
+    @PostMapping(value = "/likecomment/{commentId}")
+    public Object likeComment(@PathVariable Long commentId, HttpServletRequest request){
+        String token = request.getHeader(tokenHeader);
+        User user = userUtil.fetchUserDetails2(token);
+        if(token==null || user==null){
+            return userUtil.tokenNullOrInvalidResponse(token);
+        }
+        return questionService.likeComment(commentId,user);
+    }
+
+
     @PostMapping(value = "/bookmarkThread/{questionId}")
     public Object bookMarkQuestion(@PathVariable Long questionId, HttpServletRequest request){
         String token = request.getHeader(tokenHeader);
