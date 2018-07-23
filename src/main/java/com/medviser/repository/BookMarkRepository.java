@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Repository
 public interface BookMarkRepository extends JpaRepository<BookMark,Long>{
-    BookMark findByUser(User user);
+    List<BookMark> findByUser(User user);
     BookMark findByUserAndQuestion(User user, Question q);
 
     @Query(value = "select question from BookMark WHERE user =:user")

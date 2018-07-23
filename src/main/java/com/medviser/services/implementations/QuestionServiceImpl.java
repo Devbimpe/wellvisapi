@@ -336,10 +336,13 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Object getBookmarkedFeeds(User user) {
         Map<String,Object> responseMap = new HashMap();
-
+        List<QuestionResDTO> q=new ArrayList<>();
         try {
-
-                List<QuestionResDTO> q= convertQuestionEntitiesToDTO(bookMarkRepository.findQuestion(user),user);
+            List<BookMark> bookMarks= bookMarkRepository.findByUser(user);
+            for (BookMark b: bookMarks) {
+               q.add(convertQuestionEntityToDTO(b.question,user));
+            }
+                //List<QuestionResDTO> q= convertQuestionEntitiesToDTO(bookMarkRepository.findQuestion(user),user);
 
                 responseMap.put("questions",q);
                 Response response = new Response("Success","Operation Successful",responseMap);
