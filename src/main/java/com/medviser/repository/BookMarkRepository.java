@@ -18,6 +18,6 @@ public interface BookMarkRepository extends JpaRepository<BookMark,Long>{
     BookMark findByUser(User user);
     BookMark findByUserAndQuestion(User user, Question q);
 
-    @Query(value = "select question from BookMark WHERE user =:user",nativeQuery = true)
+    @Query(value = "select question from book_mark WHERE user =:user",nativeQuery = true)
     List<Question> findQuestion(@Param("user") User user);
 }
