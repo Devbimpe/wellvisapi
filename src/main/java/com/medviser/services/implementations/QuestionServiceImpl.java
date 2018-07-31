@@ -167,6 +167,8 @@ public class QuestionServiceImpl implements QuestionService {
                 //List<Comments> comments=commentRepository.findByQuestion(q);
                 //List<CommentsDTO> commentsDTOS = convEntsToDTOs(comments);
                 //responseMap.put("comments",commentsDTOS);
+                q.trendingCount = q.trendingCount+1;
+                questionRepository.save(q);
                 responseMap.put("success","success");
                 Response response = new Response("Success","Operation Successful",responseMap);
                 return response;
@@ -356,6 +358,22 @@ public class QuestionServiceImpl implements QuestionService {
         return response;
     }
 
+
+    @Override
+    public Object getComments(User user, PageableDetailsDTO pageableDetailsDTO) {
+        Map<String,Object> responseMap = new HashMap();
+        try {
+            List<CommentsDTO> q= convEntsToDTOs(commentRepository.findByUser(user),user);
+            responseMap.put("comments",q);
+            Response response = new Response("Success","Operation Successful",responseMap);
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Response response = new Response("Error","error occurred",responseMap);
+        return response;
+    }
+
     @Override
     public Object getFlaggedFeeds(User user) {
         Map<String,Object> responseMap = new HashMap();
@@ -461,6 +479,7 @@ public class QuestionServiceImpl implements QuestionService {
     public Object getTrendingQuestions(PageableDetailsDTO pageableDetailsDTO,User user) {
         Map<String,Object> responseMap = new HashMap();
         try {
+
             Page<Question> trendingQuestions = questionRepository.findAllByDelFlagOrderByTrendingCountDesc("N",new PageRequest(pageableDetailsDTO.page,pageableDetailsDTO.size));
             List<QuestionResDTO> qdto = convertQuestionEntitiesToDTO(trendingQuestions.getContent(),user);
             responseMap.put("Questions",qdto);

@@ -16,4 +16,5 @@ public interface QuestionRepository extends CommonRepository<Question,Long> {
     Page<Question> findAllByDelFlagOrderByTrendingCountDesc(String delFlag,Pageable pageable);
     Page<Question> findByCategoryAndDelFlag(String category,String delFlag, Pageable pageable);
     Page<Question> findByUserAndDelFlag(User user, String delFlag,Pageable pageable);
+
 }

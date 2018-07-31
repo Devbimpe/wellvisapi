@@ -49,5 +49,7 @@ public interface QuestionService {
 
     Object getBookmarkedFeeds(User user);
 
+    Object getComments(User user,PageableDetailsDTO pageableDetailsDTO);
+
     Object getFlaggedFeeds(User user);
 }

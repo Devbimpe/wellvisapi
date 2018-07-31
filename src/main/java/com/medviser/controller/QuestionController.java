@@ -204,6 +204,13 @@ public class QuestionController {
         return questionService.moderateQuestion(moderatePostDTO);
     }
 
+    @PostMapping(value = "/getcomments")
+    public Object getComments(@RequestBody PageableDetailsDTO pageableDetailsDTO, HttpServletRequest request){
+        String token = request.getHeader(tokenHeader);
+        User userTemp = userUtil.fetchUserDetails2(token);
+        return questionService.getComments(userTemp,pageableDetailsDTO);
+    }
+
     @RequestMapping(
             value = "/**",
             method = RequestMethod.OPTIONS
